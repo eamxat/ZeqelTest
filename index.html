@@ -10,7 +10,7 @@
         :root {
             --bg-color: #F4EFEA;
             --text-color: #1A1C20;
-            --accent-blue: #5C9EAD;
+            --accent-blue: #1A7392;
             --light-blue: #73C2FB;
             --border-color: rgba(26, 28, 32, 0.1);
             
@@ -114,6 +114,20 @@
             );
         }
 
+        /* Degradado azul fijo en la parte superior del cielo */
+        #clouds-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 50vh;
+            /* Opacidad exacta del 20% usando el RGB de #1A7392 */
+            background: linear-gradient(to bottom, rgba(26, 115, 146, 0.2) 0%, rgba(26, 115, 146, 0) 100%);
+            z-index: 10;
+            pointer-events: none;
+        }
+
         .cloud-layer {
             position: absolute;
             top: 0;
@@ -200,7 +214,7 @@
         }
 
         /* =========================================================
-           SISTEMA LIQUID GLASS PREMIUM (visionOS / macOS Style)
+           SISTEMA LIQUID Glass PREMIUM (visionOS / macOS Style)
            ========================================================= */
         nav {
             position: fixed;
@@ -287,13 +301,20 @@
             height: 70px;
             width: auto;
             opacity: 0;
-            animation: fadeLogoIn 1.5s ease-out forwards;
-            transition: transform 0.3s ease;
+            transform-origin: center center;
+            animation: flyLogoIn 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.27);
         }
 
-        @keyframes fadeLogoIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        @keyframes flyLogoIn {
+            0% { 
+                opacity: 0; 
+                transform: translateY(20px) scale(0.9) rotate(-3deg);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1) rotate(0deg);
+            }
         }
 
         .logo-img:hover {
@@ -515,8 +536,8 @@
 
         .card:hover {
             transform: translateY(-8px);
-            background: rgba(92, 158, 173, 0.08);
-            border-color: rgba(92, 158, 173, 0.3);
+            background: rgba(26, 115, 146, 0.08);
+            border-color: rgba(26, 115, 146, 0.3);
         }
 
         .card h3 {
@@ -655,9 +676,9 @@
 
         .brand-card:hover {
             transform: translateY(-8px);
-            background: rgba(92, 158, 173, 0.08);
-            border-color: rgba(92, 158, 173, 0.4);
-            box-shadow: 0 10px 30px rgba(92, 158, 173, 0.1);
+            background: rgba(26, 115, 146, 0.08);
+            border-color: rgba(26, 115, 146, 0.4);
+            box-shadow: 0 10px 30px rgba(26, 115, 146, 0.1);
         }
 
         .brand-card img {
