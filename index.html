@@ -74,6 +74,97 @@
                 rgba(0,0,0,0.25) 68%,
                 rgba(0,0,0,0) 85%
             );
+            /* Animación suave y garantizada de elevación usando transform */
+            transform-origin: center center;
+            will-change: transform;
+            animation: elevateSky 24s ease-in-out infinite alternate;
+        }
+
+        @keyframes elevateSky {
+            0% { transform: scale(1.15) translateY(3.5%); }
+            100% { transform: scale(1.15) translateY(-3.5%); }
+        }
+
+        /* --- Sistema de Nubes Parallax --- */
+        #clouds-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            z-index: -2;
+            pointer-events: none;
+            /* La máscara se aplica al contenedor para que todas las nubes se desvanezcan perfecto abajo */
+            -webkit-mask-image: linear-gradient(
+                to bottom,
+                rgba(0,0,0,1) 0%,
+                rgba(0,0,0,0.95) 15%,
+                rgba(0,0,0,0.75) 40%,
+                rgba(0,0,0,0.25) 68%,
+                rgba(0,0,0,0) 85%
+            );
+            mask-image: linear-gradient(
+                to bottom,
+                rgba(0,0,0,1) 0%,
+                rgba(0,0,0,0.95) 15%,
+                rgba(0,0,0,0.75) 40%,
+                rgba(0,0,0,0.25) 68%,
+                rgba(0,0,0,0) 85%
+            );
+        }
+
+        .cloud-layer {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            background-image: url('https://raw.githubusercontent.com/eamxat/Imagenes-Zeqel/refs/heads/main/ccloud.png');
+            background-repeat: repeat;
+            will-change: transform;
+        }
+
+        /* Capa 1: Lejana (Nubes pequeñas, lentas) */
+        .cloud-layer-1 {
+            --size: 350px;
+            left: calc(var(--size) * -1);
+            width: calc(100vw + (var(--size) * 2));
+            background-size: var(--size) auto;
+            background-position: 0 10%;
+            opacity: 0.35;
+            animation: driftClouds 50s linear infinite;
+        }
+
+        /* Capa 2: Media (Nubes medianas, velocidad media, dirección opuesta) */
+        .cloud-layer-2 {
+            --size: 550px;
+            left: calc(var(--size) * -1);
+            width: calc(100vw + (var(--size) * 2));
+            background-size: var(--size) auto;
+            background-position: 0 35%;
+            opacity: 0.50;
+            animation: driftCloudsReverse 40s linear infinite;
+        }
+
+        /* Capa 3: Cercana (Nubes grandes, rápidas) */
+        .cloud-layer-3 {
+            --size: 850px;
+            left: calc(var(--size) * -1);
+            width: calc(100vw + (var(--size) * 2));
+            background-size: var(--size) auto;
+            background-position: 0 -5%;
+            opacity: 0.65;
+            animation: driftClouds 25s linear infinite;
+        }
+
+        /* Animaciones seamless infinitas impulsadas por GPU */
+        @keyframes driftClouds {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(var(--size), 0, 0); }
+        }
+
+        @keyframes driftCloudsReverse {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(calc(var(--size) * -1), 0, 0); }
         }
 
         /* --- Degradado beige inferior — siempre visible en todas las páginas --- */
@@ -946,6 +1037,13 @@
 
     <!-- Canvas de grain global -->
     <canvas id="grain-canvas"></canvas>
+
+    <!-- Sistema de Nubes Animadas Multicapa -->
+    <div id="clouds-container">
+        <div class="cloud-layer cloud-layer-1"></div>
+        <div class="cloud-layer cloud-layer-2"></div>
+        <div class="cloud-layer cloud-layer-3"></div>
+    </div>
 
     <!-- Filtro SVG Liquid Glass Distortion (optimizado orgánico) -->
     <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
