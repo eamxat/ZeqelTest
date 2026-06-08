@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Estudio de Branding | Minimalista</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+
+        :root {
+            --bg-color: #F4EFEA;
+            --text-color: #1A1C20;
+            --accent-blue: #5C9EAD;
+            --light-blue: #73C2FB;
+            --border-color: rgba(26, 28, 32, 0.1);
+            
+            /* 👇 MODIFICADOR GLOBAL DE TEXTOS DE INICIO 👇 */
+            /* Cambia este único número para ajustar todo proporcionalmente.
+               1 = Tamaño normal | 0.85 = 15% más pequeño | 1.2 = 20% más grande */
+            --hero-text-scale: 0.85;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        /* --- Fotografía de cielo — siempre visible en todas las páginas --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            background-image: url('https://cdn.pixabay.com/photo/2018/08/14/22/00/blue-sky-3606717_1280.jpg');
+            background-size: cover;
+            background-position: center top;
+            filter: saturate(0.55) contrast(0.88) brightness(1.12);
+            opacity: 0.78;
+            z-index: -2;
+            pointer-events: none;
+            -webkit-mask-image: linear-gradient(
+                to bottom,
+                rgba(0,0,0,1) 0%,
+                rgba(0,0,0,0.95) 15%,
+                rgba(0,0,0,0.75) 40%,
+                rgba(0,0,0,0.25) 68%,
+                rgba(0,0,0,0) 85%
+            );
+            mask-image: linear-gradient(
+                to bottom,
+                rgba(0,0,0,1) 0%,
+                rgba(0,0,0,0.95) 15%,
+                rgba(0,0,0,0.75) 40%,
+                rgba(0,0,0,0.25) 68%,
+                rgba(0,0,0,0) 85%
+            );
+        }
+
+        /* --- Degradado beige inferior — siempre visible en todas las páginas --- */
+        body::after {
+            content: "";
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+            height: 60vh;
+            background: linear-gradient(
+                to bottom,
+                rgba(244, 239, 234, 0) 0%,
+                rgba(244, 239, 234, 0.5) 50%,
+                rgba(244, 239, 234, 0.88) 75%,
+                rgba(244, 239, 234, 1) 100%
+            );
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* --- Grain canvas global — cubre toda la web en todas las páginas --- */
+        #grain-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.038;
+            mix-blend-mode: multiply;
+        }
+
+        /* =========================================================
+           SISTEMA LIQUID GLASS PREMIUM (visionOS / macOS Style)
+           ========================================================= */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            
+            /* Contenedor transparente, los pseudo-elementos hacen el trabajo */
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            
+            /* Transición extremadamente suave para la elevación */
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+
+        /* Capa 1: .liquidGlass-effect y .liquidGlass-tint combinados */
+        nav::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: -2;
+            
+            /* Blur base y distorsión líquida */
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            filter: url(#glass-distortion);
+            
+            /* Tint súper sutil inicial */
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+
+        /* Capa 2: .liquidGlass-shine y sombras base */
+        nav::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            
+            /* Shine sutil inicial */
+            box-shadow: 
+                inset 1px 1px 1px 0 rgba(255, 255, 255, 0.2),
+                inset -1px -1px 1px 0 rgba(255, 255, 255, 0.05);
+                
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            pointer-events: none;
+        }
+
+        /* --- Estado Scrolled: Sensación de Ascenso y Flotación --- */
+        nav.nav-scrolled {
+            /* Ligera compresión vertical que da la ilusión óptica de despegue */
+            padding: 1rem 3rem; 
+        }
+
+        nav.nav-scrolled::before {
+            /* El blur y el tint aumentan sutilmente al ascender, como alejándose del fondo */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.25); /* Tint exacto de tu referencia */
+        }
+
+        nav.nav-scrolled::after {
+            /* Shine interno más pronunciado y sombra exterior suave (tu referencia) */
+            box-shadow: 
+                inset 2px 2px 1px 0 rgba(255, 255, 255, 0.5),
+                inset -1px -1px 1px 1px rgba(255, 255, 255, 0.3),
+                0 6px 12px rgba(0, 0, 0, 0.06), 
+                0 0 20px rgba(0, 0, 0, 0.04);
+        }
+        /* ========================================================= */
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .logo-img {
+            height: 70px;
+            width: auto;
+            opacity: 0;
+            animation: fadeLogoIn 1.5s ease-out forwards;
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes fadeLogoIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: #000000;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            height: 100dvh;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 18vh 10% 0;
+            position: relative;
+            background-color: transparent;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            z-index: 1;
+            max-width: 900px;
+            position: relative;
+        }
+
+        .hero-content .label {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInLabel 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .hero-content h1 {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.3s forwards;
+        }
+
+        .hero-content p {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.5s forwards;
+        }
+
+        .hero-content p.secondary-text {
+            animation-delay: 0.7s;
+        }
+
+        @keyframes fadeInLabel {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+                letter-spacing: 0px;
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                letter-spacing: 3px;
+            }
+        }
+
+        .label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent-blue);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: calc(clamp(2.5rem, 5vw, 4.5rem) * var(--hero-text-scale));
+            font-weight: 400;
+            letter-spacing: -1px;
+            line-height: 1.05;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent-blue);
+        }
+
+        .hero .subtitle {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: calc(clamp(1.5rem, 2.5vw, 2rem) * var(--hero-text-scale));
+            font-weight: 400;
+            color: var(--text-color);
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.4s forwards;
+        }
+
+        .hero p {
+            margin-top: 1.8rem;
+            font-size: calc(clamp(1rem, 1.1vw, 1.1rem) * var(--hero-text-scale));
+            opacity: 0.85;
+            max-width: 750px;
+            font-weight: 400;
+            line-height: 1.9;
+        }
+
+        .hero p.secondary-text {
+            font-size: calc(0.95rem * var(--hero-text-scale));
+            opacity: 0.65;
+            margin-top: 1rem;
+            max-width: 700px;
+        }
+
+        .hero p strong {
+            font-weight: 800;
+            color: #000000;
+        }
+
+        /* --- Estilos para las Páginas (SPA) --- */
+        .page {
+            display: none;
+            opacity: 0;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding-top: 140px;
+            padding-bottom: 4rem;
+            animation: fadeInPage 0.8s ease-out forwards;
+            background: transparent;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        #inicio.page {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        #inicio.active {
+            display: flex;
+        }
+
+        @keyframes fadeInPage {
+            to { opacity: 1; }
+        }
+
+        .content-section {
+            padding: 0 10%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .content-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            color: var(--text-color);
+            margin-bottom: 4rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .content-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -15px;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-blue);
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: rgba(244, 239, 234, 0.4);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            padding: 3rem 2.5rem;
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), background 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            background: rgba(92, 158, 173, 0.08);
+            border-color: rgba(92, 158, 173, 0.3);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+            font-weight: 500;
+        }
+
+        .card p {
+            font-size: 1rem;
+            opacity: 0.75;
+            line-height: 1.7;
+        }
+
+        .gif-preview {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: rgba(26, 28, 32, 0.05);
+            margin-bottom: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid rgba(26, 28, 32, 0.1);
+            position: relative;
+        }
+
+        .gif-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.8rem;
+            text-align: center;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: rgba(26, 28, 32, 0.05);
+            border-color: var(--text-color);
+        }
+
+        .action-btn.primary {
+            background: var(--text-color);
+            color: var(--bg-color);
+            border-color: var(--text-color);
+        }
+
+        .action-btn.primary:hover {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: white;
+        }
+
+        .contact-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+            margin-top: 2rem;
+        }
+
+        .contact-link {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(1.8rem, 4vw, 3.5rem);
+            color: var(--text-color);
+            text-decoration: none;
+            transition: none;
+            display: inline-block;
+            word-break: break-word;
+        }
+
+        .contact-link:hover {
+            color: var(--text-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            width: 32px;
+            height: 32px;
+            fill: var(--text-color);
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-icon:hover {
+            opacity: 1;
+            fill: var(--text-color);
+            transform: none;
+        }
+
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr));
+            gap: 1.5rem;
+        }
+
+        .brand-card {
+            background: rgba(244, 239, 234, 0.4);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            cursor: pointer;
+        }
+
+        .brand-card:hover {
+            transform: translateY(-8px);
+            background: rgba(92, 158, 173, 0.08);
+            border-color: rgba(92, 158, 173, 0.4);
+            box-shadow: 0 10px 30px rgba(92, 158, 173, 0.1);
+        }
+
+        .brand-card img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            opacity: 0.5;
+            filter: grayscale(100%);
+            transition: all 0.4s ease;
+        }
+
+        .brand-card:hover img {
+            opacity: 1;
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        .brand-placeholder {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-color);
+            opacity: 0.4;
+            transition: opacity 0.3s ease, color 0.3s ease;
+            text-align: center;
+        }
+
+        .brand-card:hover .brand-placeholder {
+            opacity: 1;
+            color: var(--accent-blue);
+        }
+
+        /* --- Sponsors Section --- */
+        .sponsors-section {
+            margin-top: 6rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 4rem;
+            text-align: center;
+        }
+
+        .sponsors-flex {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4rem;
+        }
+
+        .sponsor-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .sponsor-item svg {
+            height: 38px;
+            width: auto;
+            filter: grayscale(100%);
+            opacity: 0.4;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .sponsor-item span {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-color);
+            opacity: 0.4;
+            transition: all 0.4s ease;
+        }
+
+        .sponsor-item:hover svg {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.15);
+        }
+
+        .sponsor-item:hover span {
+            opacity: 1;
+            color: var(--text-color);
+        }
+
+        /* Fade-in Secuencial */
+        .page.active .sponsor-item {
+            animation: sponsorFadeIn 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .page.active .sponsor-item:nth-child(1) { animation-delay: 0.4s; }
+        .page.active .sponsor-item:nth-child(2) { animation-delay: 0.5s; }
+        .page.active .sponsor-item:nth-child(3) { animation-delay: 0.6s; }
+        .page.active .sponsor-item:nth-child(4) { animation-delay: 0.7s; }
+        .page.active .sponsor-item:nth-child(5) { animation-delay: 0.8s; }
+
+        @keyframes sponsorFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Legal Content Styles --- */
+        .legal-content {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 4rem;
+            background: rgba(244, 239, 234, 0.4);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+        }
+
+        .legal-content .last-updated {
+            font-size: 0.85rem;
+            opacity: 0.5;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .legal-content h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem;
+            color: var(--text-color);
+            font-weight: 600;
+            position: relative;
+        }
+
+        .legal-content h3::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 18px;
+            background-color: var(--accent-blue);
+            opacity: 0.7;
+        }
+
+        .legal-content p {
+            margin-bottom: 1.2rem;
+            opacity: 0.8;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .legal-content ul {
+            margin: 1rem 0 2rem 2.5rem;
+            opacity: 0.8;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .legal-content li {
+            margin-bottom: 0.5rem;
+            padding-left: 0.5rem;
+        }
+        
+        .legal-content li::marker {
+            color: var(--accent-blue);
+        }
+
+        @media (max-width: 768px) {
+            .legal-content {
+                padding: 2.5rem 1.5rem;
+            }
+            .legal-content h3::before {
+                left: -10px;
+            }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        footer {
+            padding: 4rem 10% 3rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+            font-size: 0.85rem;
+            color: var(--text-color);
+            opacity: 1;
+            background-color: transparent;
+        }
+
+        footer:hover {
+            opacity: 1;
+        }
+
+        .footer-brand {
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer-logo-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            cursor: pointer;
+        }
+
+        .footer-logo-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .logo-black {
+            transition: opacity 0.3s ease;
+        }
+
+        .logo-color {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            filter: invert(62%) sepia(14%) saturate(1394%) hue-rotate(146deg) brightness(94%) contrast(87%);
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-logo-wrapper:hover .logo-black {
+            opacity: 0;
+        }
+
+        .footer-logo-wrapper:hover .logo-color {
+            opacity: 1;
+        }
+
+        .footer-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            width: 100%;
+        }
+
+        .footer-tiger-icon {
+            height: 35px;
+            width: auto;
+            margin-bottom: 0.8rem;
+            opacity: 0.85;
+        }
+
+        .footer-tiger-icon:hover {
+            opacity: 0.85;
+        }
+
+        .clock {
+            font-size: 0.7rem;
+            margin-bottom: 0.4rem;
+            opacity: 0.7;
+            letter-spacing: 1px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .legal-links {
+            margin-top: 0.3rem;
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .legal-links a {
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .legal-links a:hover {
+            color: var(--text-color);
+        }
+
+        .legal-links span {
+            margin: 0 0.5rem;
+            opacity: 0.4;
+        }
+
+        .location {
+            text-align: right;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1.2rem 5%;
+                flex-direction: column;
+                gap: 1.2rem;
+            }
+            /* Mantenemos el efecto liquid fluid en móvil sin alterar layout */
+            nav.nav-scrolled {
+                padding: 0.8rem 5%;
+            }
+            .logo-img {
+                height: 55px;
+            }
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-links a {
+                font-size: 0.75rem;
+            }
+            .hero {
+                padding: 0 5%;
+                text-align: center;
+                align-items: center;
+            }
+            .hero-content p {
+                margin: 1.5rem auto 0 auto;
+                text-align: center;
+            }
+            .hero h1 {
+                font-size: calc(clamp(2.2rem, 8vw, 3.2rem) * var(--hero-text-scale));
+            }
+            .page {
+                padding-top: 160px;
+            }
+            .content-section {
+                padding: 0 5%;
+            }
+            .content-title::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .content-title {
+                text-align: center;
+                display: block;
+            }
+            .sponsors-flex {
+                gap: 2.5rem;
+            }
+            .sponsor-item svg {
+                height: 32px;
+            }
+            .card {
+                padding: 2rem 1.5rem;
+            }
+            footer {
+                padding: 4rem 5% 3rem;
+                gap: 2.5rem;
+            }
+            .footer-logo-wrapper {
+                max-width: 220px;
+                margin: 0 auto;
+            }
+            .footer-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 2.5rem;
+                text-align: center;
+            }
+            .footer-left {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .footer-tiger-icon {
+                margin: 0 auto 0.8rem auto;
+            }
+            .location {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Canvas de grain global -->
+    <canvas id="grain-canvas"></canvas>
+
+    <!-- Filtro SVG Liquid Glass Distortion (optimizado orgánico) -->
+    <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+        <defs>
+            <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%">
+                <!-- Ruido fractal orgánico de ondas largas y fluidas -->
+                <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="1" result="noise" />
+                <!-- Modificador para suavizar la intensidad y que actúe como líquido cristalino -->
+                <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.8 0" in="noise" result="coloredNoise" />
+                <!-- Desplazamiento sutil pero visible (refracción) -->
+                <feDisplacementMap in="SourceGraphic" in2="coloredNoise" scale="6" xChannelSelector="R" yChannelSelector="G" result="displaced" />
+            </filter>
+            <!-- Mantengo el filtro frosted por si se requería en algún otro lado del proyecto a futuro -->
+            <filter id="frosted" primitiveUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.65 0.65" numOctaves="2" seed="2" result="noise"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.004" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+                <feGaussianBlur in="displaced" stdDeviation="0.008" result="blurred"/>
+                <feComposite in="blurred" in2="SourceGraphic" operator="in"/>
+            </filter>
+        </defs>
+    </svg>
+
+    <nav>
+        <div class="logo-container">
+            <img src="https://raw.githubusercontent.com/eamxat/Imagenes-Zeqel/a7043297121f9d66c3d701d43d9fedd293209969/Isotipo%20Zeqel.svg" alt="Isotipo Zeqel" class="logo-img">
+        </div>
+        <div class="nav-links">
+            <a href="#proyectos">Proyectos</a>
+            <a href="#recursos">Recursos</a>
+            <a href="#codigo-abierto">Código Abierto</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+    </nav>
+
+    <!-- Canvas de fondo global -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Contenedor Principal de Páginas -->
+    <main id="main-content">
+        
+        <!-- PÁGINA: INICIO -->
+        <div id="inicio" class="page active">
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Creamos identidad visual.</h1>
+                    <div class="subtitle">para personas que construyen algo propio.</div>
+                    <p>Detrás de cada negocio hay una historia que merece ser contada. Ayudamos a emprendedores, marcas y proyectos a construir una identidad visual auténtica, capaz de transmitir confianza, personalidad y propósito.</p>
+                    <p>Trabajamos de forma cercana y colaborativa para crear una imagen que refleje quién eres, conecte con las personas adecuadas y acompañe el crecimiento de tu proyecto.</p>
+                    <p class="secondary-text"><strong>Porque una marca no se trata solo de cómo se ve, sino de cómo hace sentir.</strong></p>
+                </div>
+            </section>
+        </div>
+
+        <!-- PÁGINA: PROYECTOS -->
+        <div id="proyectos" class="page">
+            <section class="content-section">
+                <h2 class="content-title">Proyectos</h2>
+                <div class="brands-grid">
+                    <div class="brand-card"><span class="brand-placeholder">Marca 01</span></div>
+                    <div class="brand-card"><span class="brand-placeholder">Marca 02</span></div>
+                    <div class="brand-card"><span class="brand-placeholder">Marca 03</span></div>
+                    <div class="brand-card"><span class="brand-placeholder">Marca 04</span></div>
+                    <div class="brand-card"><span class="brand-placeholder">Marca 05</span></div>
+                    <div class="brand-card"><span class="brand-placeholder">Marca 06</span></div>
+                    <div class="brand-card"><span class="brand-placeholder">Marca 07</span></div>
+                    <div class="brand-card"><span class="brand-placeholder">Marca 08</span></div>
+                    <div class="brand-card"><span class="brand-placeholder">Marca 09</span></div>
+                </div>
+
+                <!-- NUEVA SECCIÓN DE HERRAMIENTAS / PATROCINADORES -->
+                <div class="sponsors-section">
+                    <div class="sponsors-flex">
+                        <div class="sponsor-item">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="20" height="20" x="2" y="2" rx="3" fill="#001E36" stroke="#31A8FF" stroke-width="1.5"/>
+                                <text x="12" y="16" font-family="Arial, sans-serif" font-weight="900" font-size="11" text-anchor="middle" fill="#31A8FF">Ps</text>
+                            </svg>
+                            <span>Photoshop</span>
+                        </div>
+                        <div class="sponsor-item">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2 C6 2 3 7 3 12 C3 17 9 20 12 22 C15 20 21 17 21 12 C21 7 18 2 12 2 Z" fill="#00A54F" opacity="0.2" stroke="#00A54F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 22 L12 16 M6 9 L18 9 M9 5 L9 15 M15 5 L15 15" stroke="#00A54F" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span>CorelDraw</span>
+                        </div>
+                        <div class="sponsor-item">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="gemini-grad" x1="0" y1="0" x2="24" y2="24">
+                                        <stop offset="0%" stop-color="#4285F4"/>
+                                        <stop offset="50%" stop-color="#9B72CB"/>
+                                        <stop offset="100%" stop-color="#D96570"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M12 2C12 2 12.5 8.5 19 10C12.5 11.5 12 18 12 18C12 18 11.5 11.5 5 10C11.5 8.5 12 2 12 2Z" fill="url(#gemini-grad)"/>
+                                <path d="M19 15C19 15 19.2 18 22 18.5C19.2 19 19 22 19 22C19 22 18.8 19 16 18.5C18.8 18 19 15 19 15Z" fill="url(#gemini-grad)"/>
+                            </svg>
+                            <span>Gemini</span>
+                        </div>
+                        <div class="sponsor-item">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="canva-grad" x1="0" y1="0" x2="24" y2="24">
+                                        <stop offset="0%" stop-color="#00C4CC"/>
+                                        <stop offset="100%" stop-color="#7D2AE8"/>
+                                    </linearGradient>
+                                </defs>
+                                <circle cx="12" cy="12" r="10" fill="url(#canva-grad)"/>
+                                <text x="12" y="16.5" font-family="Arial, sans-serif" font-weight="900" font-size="13" text-anchor="middle" fill="#FFFFFF">C</text>
+                            </svg>
+                            <span>Canva</span>
+                        </div>
+                        <div class="sponsor-item">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path fill="#181717" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                            </svg>
+                            <span>GitHub</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PÁGINA: RECURSOS -->
+        <div id="recursos" class="page">
+            <section class="content-section">
+                <h2 class="content-title">Recursos</h2>
+                <p style="opacity: 0.8; max-width: 650px; margin-bottom: 3rem; font-size: 1.15rem;">Herramientas, mockups y assets creados en nuestro estudio, compartidos para la comunidad creativa.</p>
+                <div class="grid-layout">
+                    <div class="card" style="cursor: default;">
+                        <div class="gif-preview"><span class="brand-placeholder">Vista Previa</span></div>
+                        <h3>Mockups de Papelería</h3>
+                        <p>Set de mockups minimalistas en alta resolución para presentaciones de branding corporativo.</p>
+                        <div class="card-actions"><a href="#" target="_blank" class="action-btn primary">Descargar</a></div>
+                    </div>
+                    <div class="card" style="cursor: default;">
+                        <div class="gif-preview"><span class="brand-placeholder">Vista Previa</span></div>
+                        <h3>Pinceles Texturizados (PS)</h3>
+                        <p>Colección de pinceles para Adobe Photoshop, ideales para agregar texturas orgánicas a tus diseños.</p>
+                        <div class="card-actions"><a href="#" target="_blank" class="action-btn primary">Descargar</a></div>
+                    </div>
+                    <div class="card" style="cursor: default;">
+                        <div class="gif-preview"><span class="brand-placeholder">Vista Previa</span></div>
+                        <h3>Plantillas para IG</h3>
+                        <p>Layouts editables para Instagram diseñados específicamente para estudios creativos y agencias.</p>
+                        <div class="card-actions"><a href="#" target="_blank" class="action-btn primary">Descargar</a></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PÁGINA: CÓDIGO ABIERTO -->
+        <div id="codigo-abierto" class="page">
+            <section class="content-section">
+                <h2 class="content-title">Código Abierto</h2>
+                <div class="grid-layout">
+                    <div class="card" style="cursor: default;">
+                        <div class="gif-preview"><span class="brand-placeholder">GIF Vista Previa</span></div>
+                        <h3>Zeqel UI Library</h3>
+                        <p>Colección de componentes minimalistas, accesibles y listos para usar en tus próximos proyectos web.</p>
+                        <div class="card-actions">
+                            <button class="action-btn copy-btn" data-url="https://github.com/eamxat/zeqel-ui">Copiar Enlace</button>
+                            <a href="https://github.com/eamxat/zeqel-ui" target="_blank" class="action-btn primary">Abrir GitHub</a>
+                        </div>
+                    </div>
+                    <div class="card" style="cursor: default;">
+                        <div class="gif-preview"><span class="brand-placeholder">GIF Vista Previa</span></div>
+                        <h3>Canvas Animations</h3>
+                        <p>Repositorio de fondos interactivos programados en WebGL, ligeros, fluidos y modulares.</p>
+                        <div class="card-actions">
+                            <button class="action-btn copy-btn" data-url="https://github.com/eamxat/canvas-animations">Copiar Enlace</button>
+                            <a href="https://github.com/eamxat/canvas-animations" target="_blank" class="action-btn primary">Abrir GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PÁGINA: CONTACTO -->
+        <div id="contacto" class="page">
+            <section class="content-section">
+                <h2 class="content-title">Iniciemos algo grande.</h2>
+                <div class="contact-wrapper">
+                    <div>
+                        <span class="label">Escríbenos</span>
+                        <a href="mailto:zeqel.studio@gmail.com" class="contact-link">zeqel.studio@gmail.com</a>
+                    </div>
+                    <div>
+                        <span class="label">Nuestras Redes</span>
+                        <div class="social-links">
+                            <a href="#" target="_blank" title="Instagram">
+                                <svg class="social-icon" viewBox="0 0 24 24">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                                </svg>
+                            </a>
+                            <a href="#" target="_blank" title="Discord">
+                                <svg class="social-icon" viewBox="0 0 24 24">
+                                    <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PÁGINA: PRIVACIDAD -->
+        <div id="privacidad" class="page">
+            <section class="content-section">
+                <h2 class="content-title">Política de Privacidad</h2>
+                <div class="legal-content">
+                    <p class="last-updated">Última actualización: Junio de 2026</p>
+
+                    <h3>1. IDENTIDAD DEL TITULAR</h3>
+                    <p>Este sitio web es propiedad de ZEQEL Estudio Creativo (en adelante, "ZEQEL"). El presente sitio tiene carácter informativo y creativo, y está destinado a la exhibición de proyectos de diseño, portafolio profesional, recursos gráficos, herramientas, enlaces a proyectos de código abierto y contenido relacionado con la actividad creativa de ZEQEL.</p>
+
+                    <h3>2. DATOS PERSONALES</h3>
+                    <p>ZEQEL no solicita registros de usuarios, no ofrece cuentas de usuario, no procesa pagos y no recopila datos personales de forma directa a través de formularios propios.</p>
+                    <p>La navegación por este sitio web puede realizarse libremente sin necesidad de proporcionar información personal.</p>
+
+                    <h3>3. SERVICIOS DE TERCEROS Y ALOJAMIENTO</h3>
+                    <p>Este sitio web puede estar alojado mediante servicios proporcionados por terceros, incluyendo plataformas como GitHub Pages u otros servicios de alojamiento web. Estos proveedores pueden recopilar información técnica necesaria para el funcionamiento de sus servicios, incluyendo, entre otros:</p>
+                    <ul>
+                        <li>Dirección IP.</li>
+                        <li>Tipo de navegador.</li>
+                        <li>Sistema operativo.</li>
+                        <li>Fecha y hora de acceso.</li>
+                        <li>Información técnica relacionada con el rendimiento y la seguridad.</li>
+                    </ul>
+                    <p>El tratamiento de dichos datos se encuentra sujeto a las políticas de privacidad de los respectivos proveedores.</p>
+
+                    <h3>4. REDES SOCIALES Y MEDIOS DE CONTACTO</h3>
+                    <p>Este sitio puede incluir enlaces a perfiles o canales externos gestionados por ZEQEL en plataformas como:</p>
+                    <ul>
+                        <li>Instagram.</li>
+                        <li>Discord.</li>
+                        <li>GitHub.</li>
+                        <li>Correo electrónico.</li>
+                        <li>Otras redes sociales o plataformas de comunicación.</li>
+                    </ul>
+                    <p>Al acceder a cualquiera de estos servicios, el usuario abandona este sitio web y pasa a estar sujeto a las políticas, términos y condiciones establecidos por cada plataforma. ZEQEL no controla ni es responsable de la recopilación, tratamiento o almacenamiento de datos realizados por dichos servicios externos.</p>
+
+                    <h3>5. RECURSOS, DESCARGAS Y ENLACES EXTERNOS</h3>
+                    <p>Este sitio puede ofrecer enlaces a recursos gratuitos, herramientas, repositorios de código abierto, material educativo, archivos descargables o contenido alojado en plataformas externas. Dichos recursos pueden encontrarse alojados en servicios de terceros, incluyendo, entre otros:</p>
+                    <ul>
+                        <li>GitHub.</li>
+                        <li>Google Drive.</li>
+                        <li>Dropbox.</li>
+                        <li>Discord.</li>
+                        <li>Plataformas de almacenamiento o distribución de archivos.</li>
+                        <li>Sitios web de terceros.</li>
+                    </ul>
+                    <p>ZEQEL no garantiza la disponibilidad permanente de estos recursos ni se responsabiliza por cambios, interrupciones, eliminación de contenido o modificaciones realizadas por terceros. El acceso y uso de cualquier recurso externo se realiza bajo la responsabilidad exclusiva del usuario.</p>
+
+                    <h3>6. PROYECTOS DE CÓDIGO ABIERTO</h3>
+                    <p>Algunos contenidos publicados en este sitio pueden enlazar a proyectos de código abierto alojados en repositorios públicos. Cada proyecto puede estar sujeto a sus propias licencias, condiciones de uso y términos de distribución, los cuales deberán ser consultados directamente en el repositorio correspondiente.</p>
+
+                    <h3>7. COOKIES</h3>
+                    <p>Este sitio web no utiliza cookies propias destinadas a identificar usuarios ni a realizar seguimiento publicitario. Sin embargo, los servicios externos enlazados desde este sitio podrían utilizar cookies, tecnologías de seguimiento o mecanismos similares de acuerdo con sus respectivas políticas de privacidad.</p>
+
+                    <h3>8. SEGURIDAD</h3>
+                    <p>ZEQEL adopta medidas razonables para mantener la seguridad e integridad de los contenidos publicados en este sitio. No obstante, ningún sistema conectado a Internet puede garantizar una seguridad absoluta, por lo que no puede asegurarse la ausencia total de riesgos derivados del uso de redes y servicios digitales.</p>
+
+                    <h3>9. PROPIEDAD INTELECTUAL</h3>
+                    <p>Salvo que se indique expresamente lo contrario, los diseños, textos, imágenes, gráficos, logotipos, recursos originales y demás contenidos publicados en este sitio son propiedad de ZEQEL Estudio Creativo o se utilizan conforme a las licencias correspondientes. Queda prohibida su reproducción, distribución o modificación sin la autorización correspondiente o sin respetar las licencias aplicables.</p>
+
+                    <h3>10. MODIFICACIONES DE LA POLÍTICA DE PRIVACIDAD</h3>
+                    <p>ZEQEL se reserva el derecho de modificar la presente Política de Privacidad en cualquier momento con el fin de adaptarla a cambios legales, técnicos o funcionales. Las modificaciones serán publicadas en esta misma página y entrarán en vigor desde el momento de su publicación.</p>
+
+                    <h3>11. ACEPTACIÓN</h3>
+                    <p>El acceso y uso de este sitio web implica la aceptación de la presente Política de Privacidad. Si el usuario no está de acuerdo con cualquiera de las disposiciones aquí establecidas, deberá abstenerse de utilizar el sitio web.</p>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="footer-brand">
+            <div class="footer-logo-wrapper">
+                <img src="https://raw.githubusercontent.com/eamxat/Imagenes-Zeqel/a7043297121f9d66c3d701d43d9fedd293209969/Zeqel%20Texto%20negro.svg" alt="Zeqel Texto" class="logo-black">
+                <img src="https://raw.githubusercontent.com/eamxat/Imagenes-Zeqel/a7043297121f9d66c3d701d43d9fedd293209969/Zeqel%20Texto%20negro.svg" alt="Zeqel Texto Color" class="logo-color">
+            </div>
+        </div>
+        <div class="footer-info">
+            <div class="footer-left">
+                <img src="https://raw.githubusercontent.com/eamxat/Imagenes-Zeqel/a7043297121f9d66c3d701d43d9fedd293209969/Tiger%20Isotipo.svg" alt="Tiger Isotipo" class="footer-tiger-icon">
+                <div class="copyright">
+                    &copy; Zeqel / Todos los derechos reservados.
+                </div>
+                <div class="legal-links">
+                    <a href="#privacidad">Política de privacidad</a><span>|</span><a href="#">Términos y condiciones</a>
+                </div>
+            </div>
+            <div class="location">
+                <div id="real-time-clock" class="clock"></div>
+                Ensenada, B.C.<br>
+                México
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+                e.preventDefault();
+            }
+        });
+
+        // --- Grain canvas animado (cubre toda la web) ---
+        const grainCanvas = document.getElementById('grain-canvas');
+        const grainCtx = grainCanvas.getContext('2d');
+
+        function resizeGrain() {
+            grainCanvas.width = window.innerWidth;
+            grainCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeGrain);
+        resizeGrain();
+
+        let grainFrame = 0;
+        function grainLoop() {
+            grainFrame++;
+            if (grainFrame % 4 === 0) {
+                const w = grainCanvas.width;
+                const h = grainCanvas.height;
+                const imageData = grainCtx.createImageData(w, h);
+                const data = imageData.data;
+                for (let i = 0; i < data.length; i += 4) {
+                    const v = Math.random() * 255 | 0;
+                    data[i]     = v;
+                    data[i + 1] = v;
+                    data[i + 2] = v;
+                    data[i + 3] = 255;
+                }
+                grainCtx.putImageData(imageData, 0, 0);
+            }
+            requestAnimationFrame(grainLoop);
+        }
+        grainLoop();
+
+        // Canvas de fondo animado (azul maya suave)
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let time = 0;
+        
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        window.addEventListener('resize', resize);
+        resize();
+
+        function animate() {
+            time += 0.002;
+            
+            // No pintar fondo sólido — el canvas solo agrega el orbe azul maya
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const xOffset = Math.sin(time) * (canvas.width * 0.25);
+            const yOffset = Math.cos(time * 0.8) * (canvas.height * 0.25);
+            
+            const centerX = (canvas.width / 2) + xOffset;
+            const centerY = (canvas.height / 2) + yOffset;
+            const radius = Math.max(canvas.width, canvas.height) * 0.55;
+            
+            const gradient = ctx.createRadialGradient(
+                centerX, centerY, 0, 
+                centerX, centerY, radius
+            );
+            
+            gradient.addColorStop(0, 'rgba(115, 194, 251, 0.18)');
+            gradient.addColorStop(0.5, 'rgba(115, 194, 251, 0.07)');
+            gradient.addColorStop(1, 'rgba(244, 239, 234, 0)');
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            requestAnimationFrame(animate);
+        }
+        
+        function updateClock() {
+            const clockEl = document.getElementById('real-time-clock');
+            if (clockEl) {
+                const now = new Date();
+                clockEl.textContent = now.toLocaleTimeString('es-MX', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: true
+                });
+            }
+        }
+        
+        window.onload = function() {
+            animate();
+            updateClock();
+            setInterval(updateClock, 1000);
+        };
+
+        // Navegación SPA
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-links a, .legal-links a[href="#privacidad"]');
+            const logo = document.querySelector('.logo-container');
+            const pages = document.querySelectorAll('.page');
+            const copyButtons = document.querySelectorAll('.copy-btn');
+
+            function navigateTo(pageId) {
+                pages.forEach(page => page.classList.remove('active'));
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1); 
+                    navigateTo(targetId);
+                });
+            });
+
+            if (logo) {
+                logo.addEventListener('click', () => {
+                    navigateTo('inicio');
+                });
+            }
+
+            copyButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const url = btn.getAttribute('data-url');
+                    const tempInput = document.createElement('input');
+                    tempInput.value = url;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempInput);
+
+                    const originalText = btn.textContent;
+                    btn.textContent = '¡Copiado!';
+                    btn.style.color = 'var(--accent-blue)';
+                    btn.style.borderColor = 'var(--accent-blue)';
+
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.style.color = '';
+                        btn.style.borderColor = '';
+                    }, 2000);
+                });
+            });
+        });
+
+        // --- Liquid Glass Scroll Effect (Efecto de Ascenso) ---
+        const mainNav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            // Apenas el usuario baja unos pixeles, aplicamos la elevación suave
+            if (window.scrollY > 15) {
+                mainNav.classList.add('nav-scrolled');
+            } else {
+                mainNav.classList.remove('nav-scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
