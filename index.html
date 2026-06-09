@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Zeqel - Estudio Creativo</title>
+    <title>Zeqel © Estudio Creativo</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
 
@@ -54,7 +54,8 @@
             background-image: url('https://cdn.pixabay.com/photo/2018/08/14/22/00/blue-sky-3606717_1280.jpg');
             background-size: cover;
             background-position: center top;
-            filter: saturate(0.55) contrast(0.88) brightness(1.12);
+            /* Se aumentó la saturación y ajustó contraste para hacer el cielo más presente pero natural */
+            filter: saturate(0.85) contrast(0.95) brightness(1.05);
             opacity: 0.78;
             z-index: -2;
             pointer-events: none;
@@ -338,6 +339,38 @@
 
         .nav-links a:hover {
             color: var(--accent-blue);
+        }
+
+        /* --- Botón Hamburguesa (Móvil) --- */
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1001;
+            gap: 6px;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 26px;
+            height: 2px;
+            background-color: var(--text-color);
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border-radius: 2px;
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
         }
 
         /* Hero Section */
@@ -973,8 +1006,10 @@
         @media (max-width: 768px) {
             nav {
                 padding: 1.2rem 5%;
-                flex-direction: column;
-                gap: 1.2rem;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 0;
             }
             /* Mantenemos el efecto liquid fluid en móvil sin alterar layout */
             nav.nav-scrolled {
@@ -983,18 +1018,48 @@
             .logo-img {
                 height: 55px;
             }
+            .mobile-menu-btn {
+                display: flex;
+            }
             .nav-links {
-                gap: 1rem;
-                flex-wrap: wrap;
-                justify-content: center;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(244, 239, 234, 0.95);
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                flex-direction: column;
+                align-items: center;
+                padding: 2.5rem 0;
+                gap: 2.5rem;
+                border-bottom: 1px solid rgba(26, 28, 32, 0.05);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+                
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-10px);
+                transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            }
+            .nav-links.active {
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateY(0);
             }
             .nav-links a {
-                font-size: 0.75rem;
+                font-size: 0.9rem;
+                padding: 0.5rem 1rem;
             }
             .hero {
-                padding: 0 5%;
+                padding: 120px 5% 60px; /* Espaciado extra superior para evitar solapamientos con la barra */
+                height: auto;
+                min-height: 100vh;
                 text-align: center;
                 align-items: center;
+                justify-content: flex-start; /* Permite fluidez natural del contenido hacia abajo */
+            }
+            .hero-content {
+                margin-top: 2rem;
             }
             .hero-content p {
                 margin: 1.5rem auto 0 auto;
@@ -1004,7 +1069,7 @@
                 font-size: calc(clamp(2.2rem, 8vw, 3.2rem) * var(--hero-text-scale));
             }
             .page {
-                padding-top: 160px;
+                padding-top: 120px;
             }
             .content-section {
                 padding: 0 5%;
@@ -1091,6 +1156,11 @@
         <div class="logo-container">
             <img src="https://raw.githubusercontent.com/eamxat/Imagenes-Zeqel/a7043297121f9d66c3d701d43d9fedd293209969/Isotipo%20Zeqel.svg" alt="Isotipo Zeqel" class="logo-img">
         </div>
+        <button class="mobile-menu-btn" aria-label="Abrir menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
         <div class="nav-links">
             <a href="#proyectos">Proyectos</a>
             <a href="#recursos">Recursos</a>
@@ -1240,6 +1310,17 @@
                             <a href="https://github.com/eamxat/canvas-animations" target="_blank" class="action-btn primary">Abrir GitHub</a>
                         </div>
                     </div>
+                    <div class="card" style="cursor: default;">
+                        <div class="gif-preview">
+                            <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fondo Animado 2">
+                        </div>
+                        <h3>Fondo Animado 2</h3>
+                        <p>Experimento visual de fondo interactivo y fluido para entornos web minimalistas.</p>
+                        <div class="card-actions">
+                            <button class="action-btn copy-btn" data-url="https://eamxat.github.io/Fondo-Animado-2/index.html">Copiar Enlace</button>
+                            <a href="https://eamxat.github.io/Fondo-Animado-2/index.html" target="_blank" class="action-btn primary">Ver Proyecto</a>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
@@ -1341,6 +1422,164 @@
             </section>
         </div>
 
+        <!-- PÁGINA: TÉRMINOS Y CONDICIONES -->
+        <div id="terminos" class="page">
+            <section class="content-section">
+                <h2 class="content-title">Términos y Condiciones de Uso</h2>
+                <div class="legal-content">
+                    <p class="last-updated">Última actualización: Junio de 2026</p>
+
+                    <h3>1. INFORMACIÓN GENERAL</h3>
+                    <p>Este sitio web es propiedad y está gestionado por ZEQEL Estudio Creativo. ZEQEL es un proyecto creativo independiente dedicado al diseño, desarrollo y creación de recursos digitales.</p>
+                    <p>El presente sitio web tiene como finalidad presentar proyectos creativos, mostrar trabajos de portafolio, compartir recursos relacionados con diseño gráfico, desarrollo, creatividad digital y proporcionar acceso a proyectos, herramientas y repositorios públicos.</p>
+                    <p>Al acceder, navegar o utilizar este sitio web, aceptas los presentes Términos y Condiciones de Uso. Si no estás de acuerdo con cualquiera de las disposiciones aquí establecidas, deberás abstenerte de utilizar el sitio.</p>
+                    <p>ZEQEL Estudio Creativo se reserva el derecho de modificar, actualizar o eliminar contenidos, recursos y funcionalidades del sitio cuando lo considere necesario para su correcto funcionamiento o evolución.</p>
+
+                    <h3>2. OBJETO DEL SITIO WEB</h3>
+                    <p>Este sitio web tiene como finalidad:</p>
+                    <ul>
+                        <li>Mostrar el portafolio y trabajos desarrollados por ZEQEL.</li>
+                        <li>Compartir recursos gratuitos relacionados con diseño y creatividad.</li>
+                        <li>Difundir proyectos personales y profesionales.</li>
+                        <li>Compartir proyectos de código abierto.</li>
+                        <li>Facilitar el acceso a herramientas, recursos y contenido de interés para la comunidad creativa.</li>
+                        <li>Mantener canales de comunicación y presencia digital de ZEQEL.</li>
+                    </ul>
+                    <p>Todo el contenido publicado tiene carácter informativo, educativo, creativo o demostrativo.</p>
+
+                    <h3>3. USO ACEPTABLE DEL SITIO</h3>
+                    <p>El usuario se compromete a utilizar este sitio web de manera legal, responsable y respetuosa.</p>
+                    <p>Queda prohibido:</p>
+                    <ul>
+                        <li>Utilizar el sitio para actividades ilícitas o fraudulentas.</li>
+                        <li>Intentar obtener acceso no autorizado a sistemas, servidores o recursos relacionados con el sitio.</li>
+                        <li>Introducir malware, virus, scripts maliciosos o cualquier elemento que pueda afectar el funcionamiento del sitio.</li>
+                        <li>Utilizar sistemas automatizados para recopilar masivamente información del sitio sin autorización.</li>
+                        <li>Suplantar la identidad de terceros.</li>
+                        <li>Realizar actividades que puedan perjudicar la disponibilidad o seguridad del sitio.</li>
+                    </ul>
+                    <p>ZEQEL podrá restringir o bloquear el acceso a cualquier usuario que incumpla estas condiciones.</p>
+
+                    <h3>4. PROPIEDAD INTELECTUAL</h3>
+                    <p>Salvo indicación expresa en contrario, todos los contenidos originales publicados en este sitio son propiedad intelectual de ZEQEL Estudio Creativo.</p>
+                    <p>Esto incluye, entre otros:</p>
+                    <ul>
+                        <li>Diseños gráficos.</li>
+                        <li>Identidades visuales.</li>
+                        <li>Logotipos.</li>
+                        <li>Interfaces de usuario.</li>
+                        <li>Ilustraciones.</li>
+                        <li>Textos.</li>
+                        <li>Recursos originales.</li>
+                        <li>Código desarrollado por ZEQEL.</li>
+                        <li>Conceptos creativos.</li>
+                        <li>Proyectos de portafolio.</li>
+                        <li>Material audiovisual.</li>
+                        <li>Documentación y publicaciones.</li>
+                    </ul>
+                    <p>La publicación de cualquier contenido en este sitio no implica la cesión de derechos de autor, propiedad intelectual o explotación comercial.</p>
+
+                    <h3>5. RECURSOS GRATUITOS</h3>
+                    <p>ZEQEL puede ofrecer recursos gratuitos para descarga, incluyendo:</p>
+                    <ul>
+                        <li>Plantillas.</li>
+                        <li>Mockups.</li>
+                        <li>Archivos gráficos.</li>
+                        <li>Recursos visuales.</li>
+                        <li>Fragmentos de código.</li>
+                        <li>Herramientas.</li>
+                        <li>Material educativo.</li>
+                        <li>Recursos para diseñadores y desarrolladores.</li>
+                    </ul>
+                    <p>Salvo que se indique expresamente lo contrario, dichos recursos se proporcionan "tal cual", sin garantías de ningún tipo.</p>
+                    <p>El usuario es responsable de verificar la compatibilidad, adecuación y funcionamiento de cualquier recurso antes de utilizarlo en proyectos personales o comerciales.</p>
+
+                    <h3>6. PROYECTOS DE CÓDIGO ABIERTO</h3>
+                    <p>Este sitio puede enlazar a repositorios públicos o proyectos de código abierto.</p>
+                    <p>Cada proyecto podrá estar sujeto a licencias específicas que determinarán los permisos, restricciones y condiciones de uso correspondientes.</p>
+                    <p>El usuario deberá revisar las condiciones de cada repositorio antes de reutilizar, modificar, distribuir o integrar cualquier proyecto en sus propios trabajos.</p>
+
+                    <h3>7. ENLACES EXTERNOS</h3>
+                    <p>Este sitio puede contener enlaces hacia servicios, plataformas o recursos administrados por terceros.</p>
+                    <p>Entre ellos:</p>
+                    <ul>
+                        <li>GitHub.</li>
+                        <li>Instagram.</li>
+                        <li>Discord.</li>
+                        <li>Google Drive.</li>
+                        <li>Plataformas de almacenamiento.</li>
+                        <li>Herramientas externas.</li>
+                        <li>Sitios web colaboradores.</li>
+                        <li>Recursos de terceros.</li>
+                    </ul>
+                    <p>ZEQEL no controla ni garantiza la disponibilidad, seguridad, exactitud o contenido de dichos sitios externos.</p>
+                    <p>El acceso a enlaces de terceros se realiza bajo la exclusiva responsabilidad del usuario.</p>
+
+                    <h3>8. DISPONIBILIDAD DEL SITIO</h3>
+                    <p>Aunque se realizan esfuerzos razonables para mantener el sitio disponible y actualizado, ZEQEL no garantiza:</p>
+                    <ul>
+                        <li>Disponibilidad permanente.</li>
+                        <li>Ausencia de errores.</li>
+                        <li>Ausencia de interrupciones.</li>
+                        <li>Compatibilidad con todos los dispositivos o navegadores.</li>
+                    </ul>
+                    <p>ZEQEL podrá modificar, actualizar, reorganizar o eliminar cualquier contenido, recurso o funcionalidad del sitio en cualquier momento y sin previo aviso.</p>
+
+                    <h3>9. EXCLUSIÓN DE RESPONSABILIDAD</h3>
+                    <p>Toda la información, recursos y contenidos publicados se proporcionan con fines informativos, educativos y creativos.</p>
+                    <p>ZEQEL no garantiza que el contenido sea completamente exacto, actualizado o adecuado para todas las situaciones particulares.</p>
+                    <p>En ningún caso ZEQEL será responsable por:</p>
+                    <ul>
+                        <li>Pérdidas económicas.</li>
+                        <li>Pérdida de datos.</li>
+                        <li>Interrupciones de actividad.</li>
+                        <li>Daños directos o indirectos.</li>
+                        <li>Problemas derivados del uso de recursos descargados.</li>
+                        <li>Errores en proyectos o código reutilizado.</li>
+                        <li>Fallos de plataformas o servicios de terceros.</li>
+                    </ul>
+                    <p>El uso del contenido publicado se realiza bajo la responsabilidad exclusiva del usuario.</p>
+
+                    <h3>10. COMUNIDAD Y COMUNICACIONES</h3>
+                    <p>Los usuarios que contacten con ZEQEL mediante correo electrónico, Discord, redes sociales u otros canales de comunicación deberán mantener una conducta respetuosa y adecuada.</p>
+                    <p>ZEQEL se reserva el derecho de ignorar, bloquear o restringir comunicaciones que incluyan:</p>
+                    <ul>
+                        <li>Acoso.</li>
+                        <li>Spam.</li>
+                        <li>Suplantación de identidad.</li>
+                        <li>Contenido ilegal.</li>
+                        <li>Amenazas.</li>
+                        <li>Conductas abusivas o perjudiciales.</li>
+                    </ul>
+
+                    <h3>11. MODIFICACIONES DE LOS TÉRMINOS</h3>
+                    <p>ZEQEL podrá modificar, actualizar o reemplazar estos Términos y Condiciones en cualquier momento.</p>
+                    <p>Las modificaciones entrarán en vigor desde el momento de su publicación en esta página.</p>
+                    <p>Se recomienda revisar periódicamente este documento para mantenerse informado sobre posibles cambios.</p>
+
+                    <h3>12. LEGISLACIÓN APLICABLE</h3>
+                    <p>Estos Términos y Condiciones se interpretarán conforme a la legislación aplicable en la jurisdicción correspondiente al titular del sitio web, sin perjuicio de los derechos que puedan corresponder a los usuarios conforme a las leyes de sus respectivos países.</p>
+
+                    <h3>13. CONTACTO</h3>
+                    <p>Para cualquier consulta relacionada con estos Términos y Condiciones, puedes utilizar los medios de contacto publicados en este sitio web o en las redes oficiales de ZEQEL Estudio Creativo.</p>
+
+                    <h3>14. RESERVA DE DERECHOS</h3>
+                    <p>ZEQEL se reserva todos los derechos no expresamente concedidos en estos Términos y Condiciones.</p>
+                    <p>La publicación de contenido en este sitio no constituye una autorización para reproducir, distribuir, modificar o explotar dicho contenido fuera de los límites permitidos por la legislación aplicable o por las licencias expresamente indicadas.</p>
+
+                    <h3>15. PROTECCIÓN DE CONTENIDO Y PROPIEDAD CREATIVA</h3>
+                    <p>Todos los diseños, conceptos visuales, propuestas gráficas, identidades visuales, interfaces, recursos originales, proyectos creativos, código original, textos, documentación y demás contenidos publicados en este sitio son propiedad intelectual de ZEQEL Estudio Creativo, salvo indicación expresa en contrario.</p>
+                    <p>La publicación de trabajos, bocetos, conceptos, procesos creativos o proyectos en este sitio no implica la cesión de derechos de explotación, reproducción, distribución, modificación o uso comercial.</p>
+                    <p>Queda prohibida la copia, reproducción, adaptación, comercialización o utilización de cualquier contenido original de este sitio con fines comerciales sin autorización previa y expresa de ZEQEL Estudio Creativo.</p>
+                    <p>Asimismo, queda prohibido presentar como propios diseños, conceptos creativos, elementos gráficos, identidades visuales o proyectos desarrollados por ZEQEL.</p>
+                    <p>La inspiración y referencia visual forman parte natural del proceso creativo; sin embargo, la reproducción sustancial o el uso no autorizado de obras originales podrá dar lugar a las acciones que correspondan conforme a la legislación aplicable en materia de propiedad intelectual y derechos de autor.</p>
+                    <p>La ausencia de una marca registrada, patente o registro formal no implica renuncia alguna a los derechos de autor o de propiedad intelectual que correspondan a ZEQEL Estudio Creativo sobre las obras y contenidos originales publicados en este sitio.</p>
+                    
+                    <p><br><strong>© 2026 ZEQEL Estudio Creativo. Todos los derechos reservados.</strong></p>
+                </div>
+            </section>
+        </div>
+
     </main>
 
     <footer>
@@ -1357,7 +1596,7 @@
                     &copy; Zeqel / Todos los derechos reservados.
                 </div>
                 <div class="legal-links">
-                    <a href="#privacidad">Política de privacidad</a><span>|</span><a href="#">Términos y condiciones</a>
+                    <a href="#privacidad">Política de privacidad</a><span>|</span><a href="#terminos">Términos y condiciones</a>
                 </div>
             </div>
             <div class="location">
@@ -1473,10 +1712,12 @@
 
         // Navegación SPA
         document.addEventListener('DOMContentLoaded', () => {
-            const navLinks = document.querySelectorAll('.nav-links a, .legal-links a[href="#privacidad"]');
+            const navLinks = document.querySelectorAll('.nav-links a, .legal-links a');
             const logo = document.querySelector('.logo-container');
             const pages = document.querySelectorAll('.page');
             const copyButtons = document.querySelectorAll('.copy-btn');
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinksContainer = document.querySelector('.nav-links');
 
             function navigateTo(pageId) {
                 pages.forEach(page => page.classList.remove('active'));
@@ -1485,6 +1726,20 @@
                     targetPage.classList.add('active');
                 }
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Cierra el menú en versión móvil al seleccionar un enlace
+                if (mobileMenuBtn && navLinksContainer) {
+                    mobileMenuBtn.classList.remove('active');
+                    navLinksContainer.classList.remove('active');
+                }
+            }
+
+            // Lógica para desplegar menú en móviles
+            if (mobileMenuBtn && navLinksContainer) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenuBtn.classList.toggle('active');
+                    navLinksContainer.classList.toggle('active');
+                });
             }
 
             navLinks.forEach(link => {
