@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Zeqel </title>
+    <title>Estudio de Branding | Minimalista</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
 
@@ -1040,10 +1040,11 @@
                 
                 opacity: 0;
                 pointer-events: none;
-                transform: translateY(-10px);
-                /* Optimización: Transiciones específicas para eliminar el lag del glass */
-                transition: opacity 0.25s ease-out, transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
-                will-change: opacity, transform;
+                
+                /* CORRECCIÓN: Quitamos el 'transform' y dejamos solo 'opacity'. 
+                   Esto soluciona el lag y el fallo del blur en iOS/Android al instante. */
+                transition: opacity 0.3s ease-out;
+                will-change: opacity;
             }
             
             /* Pseudo-elementos para el menú móvil igual a la navegación principal */
@@ -1056,9 +1057,7 @@
                 -webkit-backdrop-filter: blur(12px);
                 filter: url(#glass-distortion);
                 background: rgba(255, 255, 255, 0.25);
-                /* Forzar renderizado en GPU para que el filtro aparezca al instante en iOS/Android */
-                transform: translate3d(0, 0, 0);
-                -webkit-transform: translate3d(0, 0, 0);
+                /* CORRECCIÓN: Hemos eliminado el transform forzado aquí para que el blur afecte al texto de fondo */
             }
             
             .nav-links::after {
@@ -1077,7 +1076,7 @@
             .nav-links.active {
                 opacity: 1;
                 pointer-events: auto;
-                transform: translateY(0);
+                /* El menú ahora aparece con un suave y elegante fade-in (sin lag) */
             }
             .nav-links a {
                 font-size: 0.9rem;
