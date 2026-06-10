@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Estudio de Branding | Minimalista</title>
+    <title>Zeqel/title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
 
@@ -493,6 +493,19 @@
         .hero p strong {
             font-weight: 800;
             color: #000000;
+        }
+
+        /* --- Efecto Typewriter Cursor --- */
+        .typewriter-cursor::after {
+            content: '|';
+            color: var(--accent-blue);
+            font-weight: 400;
+            margin-left: 2px;
+            animation: blinkCaret 0.8s step-end infinite;
+        }
+        @keyframes blinkCaret {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         /* --- Estilos para las Páginas (SPA) --- */
@@ -1183,7 +1196,7 @@
                     <div class="subtitle">para personas que construyen algo propio.</div>
                     <p>Detrás de cada negocio hay una historia que merece ser contada. Ayudamos a emprendedores, marcas y proyectos a construir una identidad visual auténtica, capaz de transmitir confianza, personalidad y propósito.</p>
                     <p>Trabajamos de forma cercana y colaborativa para crear una imagen que refleje quién eres, conecte con las personas adecuadas y acompañe el crecimiento de tu proyecto.</p>
-                    <p class="secondary-text"><strong>Porque una marca no se trata solo de cómo se ve, sino de cómo hace sentir.</strong></p>
+                    <p class="secondary-text"><strong id="typewriter-text">Porque una marca no se trata solo de cómo se ve, sino de cómo hace sentir.</strong></p>
                 </div>
             </section>
         </div>
@@ -1560,6 +1573,42 @@
             const copyButtons = document.querySelectorAll('.copy-btn');
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
             const navLinksContainer = document.querySelector('.nav-links');
+
+            // Efecto máquina de escribir
+            const twElement = document.getElementById('typewriter-text');
+            if (twElement) {
+                const text = "Porque una marca no se trata solo de cómo se ve, sino de cómo hace sentir.";
+                twElement.innerHTML = '';
+                twElement.classList.add('typewriter-cursor');
+                let i = 0;
+                let isDeleting = false;
+                
+                // Retraso para sincronizar con la animación de entrada de la página
+                setTimeout(() => {
+                    function typeWriterLoop() {
+                        if (!isDeleting && i < text.length) {
+                            // Escribiendo
+                            twElement.innerHTML = text.substring(0, i + 1);
+                            i++;
+                            setTimeout(typeWriterLoop, 35); // Velocidad de escritura
+                        } else if (isDeleting && i > 0) {
+                            // Borrando
+                            twElement.innerHTML = text.substring(0, i - 1);
+                            i--;
+                            setTimeout(typeWriterLoop, 20); // Velocidad de borrado (más rápido)
+                        } else if (!isDeleting && i === text.length) {
+                            // Terminó de escribir, espera 3 segundos antes de borrar
+                            isDeleting = true;
+                            setTimeout(typeWriterLoop, 3000);
+                        } else if (isDeleting && i === 0) {
+                            // Terminó de borrar, espera 1 segundo antes de volver a escribir
+                            isDeleting = false;
+                            setTimeout(typeWriterLoop, 1000);
+                        }
+                    }
+                    typeWriterLoop();
+                }, 1400); 
+            }
 
             function navigateTo(pageId) {
                 pages.forEach(page => page.classList.remove('active'));
