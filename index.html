@@ -4,48 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Estudio de Branding | Minimalista</title>
-    
-    <!-- ========================================= -->
-    <!-- CUSTOMIZATION GUIDE -->
-    <!-- ========================================= -->
-    <!-- COLORS: Modifica las variables en :root (línea ~40) -->
-    <!-- TYPOGRAPHY: Modifica en * y body (línea ~55), y en clases de títulos (ej. .hero h1) -->
-    <!-- TEXT CONTENT: Busca las etiquetas de comentarios "EDIT ... HERE" -->
-    <!-- BUTTONS: Modifica las clases .action-btn y .action-btn.primary -->
-    <!-- GLASS EFFECT: Modifica backdrop-filter y rgba() en nav::before, nav.nav-scrolled y en .nav-links móvil -->
-    <!-- ANIMATIONS: Modifica los @keyframes y transition settings a lo largo del CSS -->
-    <!-- PROJECT CARDS: Busca la sección "PROJECTS SECTION" en el HTML -->
-    <!-- RESOURCE CARDS: Busca la sección "RESOURCES SECTION" en el HTML -->
-    <!-- OPEN SOURCE CARDS: Busca la sección "OPEN SOURCE SECTION" en el HTML -->
-    <!-- FOOTER: Busca la sección "FOOTER" al final del HTML -->
-    <!-- MOBILE MENU: Busca .mobile-menu-btn y .nav-links en los media queries -->
-
-    <!-- ========================================= -->
-    <!-- HOW TO ADD NEW CARDS OR SECTIONS -->
-    <!-- ========================================= -->
-    <!-- 1. CÓMO DUPLICAR UNA TARJETA EXISTENTE: Copia todo el bloque desde el comentario TEMPLATE correspondiente hasta su cierre (ej. <div class="card">...</div>) y pégalo justo debajo dentro del mismo contenedor grid. -->
-    <!-- 2. CÓMO CREAR UNA NUEVA CATEGORÍA/SECCIÓN COMPLETA: Copia un bloque entero <div id="nombre-seccion" class="page">...</div> y pégalo antes del cierre de <main>. Asegúrate de cambiar el id="" y agregar el enlace correspondiente en la etiqueta <nav>. -->
-    <!-- 3. CLASES CSS REUTILIZABLES: 
-            - Para fondos difuminados (glass): Usa 'card' o 'legal-content' o añade 'backdrop-filter: blur(5px); background: rgba(..., 0.4);'.
-            - Para títulos de sección: Usa 'content-title'.
-            - Para contenedores responsivos: Usa 'content-section'.
-            - Para layouts de cuadrícula: Usa 'grid-layout'.
-            - Para botones: Usa 'action-btn' (y 'primary' para destacar). -->
-    <!-- 4. DISEÑO RESPONSIVE Y HOVER: Todo se controla automáticamente si usas las clases base ('card', 'grid-layout'). El media query al final del CSS (@media max-width: 768px) ajusta automáticamente espaciados y tamaños. -->
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
 
         :root {
-            /* BACKGROUND COLOR */
             --bg-color: #F4EFEA;
-            /* TEXT COLOR */
             --text-color: #1A1C20;
-            /* PRIMARY COLOR */
             --accent-blue: #1A7392;
-            /* SECONDARY COLOR */
             --light-blue: #73C2FB;
-            
             --border-color: rgba(26, 28, 32, 0.1);
             
             /* 👇 MODIFICADOR GLOBAL DE TEXTOS DE INICIO 👇 */
@@ -58,7 +24,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            /* MAIN FONT */
             font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -252,7 +217,6 @@
         /* =========================================================
            SISTEMA LIQUID Glass PREMIUM (visionOS / macOS Style)
            ========================================================= */
-        /* GLASS EFFECT SETTINGS (NAVEGACIÓN) */
         nav {
             position: fixed;
             top: 0;
@@ -262,11 +226,13 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
+            
+            /* Contenedor transparente, los pseudo-elementos hacen el trabajo */
             background: transparent;
             border: none;
             box-shadow: none;
             
-            /* ANIMATION SPEED */
+            /* Transición extremadamente suave para la elevación */
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1);
         }
 
@@ -277,14 +243,13 @@
             inset: 0;
             z-index: -2;
             
-            /* BLUR STRENGTH */
+            /* Blur base y distorsión líquida */
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
             filter: url(#glass-distortion);
             
-            /* TRANSPARENCY */
+            /* Tint súper sutil inicial */
             background: rgba(255, 255, 255, 0.05);
-            /* ANIMATION SPEED */
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1);
         }
 
@@ -295,31 +260,30 @@
             inset: 0;
             z-index: -1;
             
-            /* SHADOW SETTINGS */
+            /* Shine sutil inicial */
             box-shadow: 
                 inset 1px 1px 1px 0 rgba(255, 255, 255, 0.2),
                 inset -1px -1px 1px 0 rgba(255, 255, 255, 0.05);
                 
-            /* ANIMATION SPEED */
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1);
             pointer-events: none;
         }
 
         /* --- Estado Scrolled: Sensación de Ascenso y Flotación --- */
         nav.nav-scrolled {
+            /* Ligera compresión vertical que da la ilusión óptica de despegue */
             padding: 1rem 3rem; 
         }
 
         nav.nav-scrolled::before {
-            /* BLUR STRENGTH AL HACER SCROLL */
+            /* El blur y el tint aumentan sutilmente al ascender, como alejándose del fondo */
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            /* TRANSPARENCY AL HACER SCROLL */
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.25); /* Tint exacto de tu referencia */
         }
 
         nav.nav-scrolled::after {
-            /* SHADOW SETTINGS AL HACER SCROLL */
+            /* Shine interno más pronunciado y sombra exterior suave (tu referencia) */
             box-shadow: 
                 inset 2px 2px 1px 0 rgba(255, 255, 255, 0.5),
                 inset -1px -1px 1px 1px rgba(255, 255, 255, 0.3),
@@ -354,7 +318,6 @@
             }
         }
 
-        /* HOVER EFFECTS: Logo */
         .logo-img:hover {
             transform: scale(1.05);
         }
@@ -371,17 +334,14 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
-            /* HOVER EFFECTS ANIMATION SPEED */
             transition: color 0.3s ease;
         }
 
-        /* HOVER EFFECTS: Nav Links */
         .nav-links a:hover {
             color: var(--accent-blue);
         }
 
         /* --- Botón Hamburguesa (Móvil) --- */
-        /* MOBILE MENU SETTINGS */
         .mobile-menu-btn {
             display: none;
             background: transparent;
@@ -398,13 +358,11 @@
             display: block;
             width: 26px;
             height: 2px;
-            /* MOBILE MENU COLORS */
             background-color: var(--text-color);
             transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
             border-radius: 2px;
         }
 
-        /* MOBILE MENU ANIMATION */
         .mobile-menu-btn.active span:nth-child(1) {
             transform: translateY(8px) rotate(45deg);
         }
@@ -491,7 +449,6 @@
         }
 
         .hero h1 {
-            /* HEADING FONT */
             font-family: 'Playfair Display', Georgia, serif;
             font-size: calc(clamp(2.5rem, 5vw, 4.5rem) * var(--hero-text-scale));
             font-weight: 400;
@@ -507,7 +464,6 @@
         }
 
         .hero .subtitle {
-            /* HEADING FONT */
             font-family: 'Playfair Display', Georgia, serif;
             font-size: calc(clamp(1.5rem, 2.5vw, 2rem) * var(--hero-text-scale));
             font-weight: 400;
@@ -575,7 +531,6 @@
         }
 
         .content-title {
-            /* HEADING FONT */
             font-family: 'Playfair Display', Georgia, serif;
             font-size: clamp(2.5rem, 5vw, 4rem);
             font-weight: 400;
@@ -601,7 +556,6 @@
             gap: 2rem;
         }
 
-        /* GLASS EFFECT SETTINGS (TARJETAS/CARDS) */
         .card {
             background: rgba(244, 239, 234, 0.4);
             backdrop-filter: blur(5px);
@@ -609,12 +563,10 @@
             border: 1px solid var(--border-color);
             border-radius: 2px;
             padding: 3rem 2.5rem;
-            /* HOVER EFFECTS ANIMATION SPEED */
             transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), background 0.3s ease;
             cursor: pointer;
         }
 
-        /* HOVER EFFECTS: Tarjetas */
         .card:hover {
             transform: translateY(-8px);
             background: rgba(26, 115, 146, 0.08);
@@ -661,7 +613,6 @@
             margin-top: 2rem;
         }
 
-        /* CONFIGURACIÓN DE BOTONES */
         .action-btn {
             flex: 1;
             padding: 0.8rem;
@@ -677,20 +628,17 @@
             transition: all 0.3s ease;
         }
 
-        /* HOVER EFFECTS: Botones */
         .action-btn:hover {
             background: rgba(26, 28, 32, 0.05);
             border-color: var(--text-color);
         }
 
-        /* BOTÓN PRIMARIO */
         .action-btn.primary {
             background: var(--text-color);
             color: var(--bg-color);
             border-color: var(--text-color);
         }
 
-        /* HOVER EFFECTS: Botón Primario */
         .action-btn.primary:hover {
             background: var(--accent-blue);
             border-color: var(--accent-blue);
@@ -705,7 +653,6 @@
         }
 
         .contact-link {
-            /* HEADING FONT */
             font-family: 'Playfair Display', Georgia, serif;
             font-size: clamp(1.8rem, 4vw, 3.5rem);
             color: var(--text-color);
@@ -733,7 +680,6 @@
             transition: opacity 0.3s ease;
         }
 
-        /* HOVER EFFECTS: Redes Sociales */
         .social-icon:hover {
             opacity: 1;
             fill: var(--text-color);
@@ -746,7 +692,6 @@
             gap: 1.5rem;
         }
 
-        /* GLASS EFFECT SETTINGS (MARCAS/PROYECTOS) */
         .brand-card {
             background: rgba(244, 239, 234, 0.4);
             backdrop-filter: blur(5px);
@@ -758,12 +703,10 @@
             justify-content: center;
             align-items: center;
             padding: 2.5rem;
-            /* HOVER EFFECTS ANIMATION SPEED */
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             cursor: pointer;
         }
 
-        /* HOVER EFFECTS: Brand Card */
         .brand-card:hover {
             transform: translateY(-8px);
             background: rgba(26, 115, 146, 0.08);
@@ -844,7 +787,6 @@
             transition: all 0.4s ease;
         }
 
-        /* HOVER EFFECTS: Patrocinadores */
         .sponsor-item:hover svg {
             filter: grayscale(0%);
             opacity: 1;
@@ -875,7 +817,6 @@
         }
 
         /* --- Legal Content Styles --- */
-        /* GLASS EFFECT SETTINGS (TEXTOS LEGALES) */
         .legal-content {
             max-width: 850px;
             margin: 0 auto;
@@ -897,7 +838,6 @@
         }
 
         .legal-content h3 {
-            /* HEADING FONT */
             font-family: 'Playfair Display', Georgia, serif;
             font-size: 1.5rem;
             margin: 2.5rem 0 1rem;
@@ -1004,7 +944,6 @@
             transition: opacity 0.3s ease;
         }
 
-        /* HOVER EFFECTS: Footer Logo */
         .footer-logo-wrapper:hover .logo-black {
             opacity: 0;
         }
@@ -1087,63 +1026,25 @@
                 top: 100%;
                 left: 0;
                 width: 100%;
-                
-                /* MOBILE MENU GLASS EFFECT */
-                background: transparent;
-                border-bottom: none;
-                box-shadow: none;
-                z-index: 10;
-                
-                /* CORRECCIÓN: Aislamiento de capa y blur directo en el contenedor principal.
-                   Esto evita el bug de iOS/Android donde el filtro SVG anula el desenfoque del fondo,
-                   garantizando que los textos de atrás se difuminen perfectamente. */
-                isolation: isolate;
-                -webkit-backdrop-filter: blur(16px);
-                backdrop-filter: blur(16px);
-                
+                background: rgba(244, 239, 234, 0.95);
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
                 flex-direction: column;
                 align-items: center;
                 padding: 2.5rem 0;
                 gap: 2.5rem;
+                border-bottom: 1px solid rgba(26, 28, 32, 0.05);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
                 
                 opacity: 0;
                 pointer-events: none;
-                
-                /* MOBILE MENU ANIMATION */
-                transition: opacity 0.3s ease-out;
-                will-change: opacity;
+                transform: translateY(-10px);
+                transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             }
-            
-            /* Pseudo-elementos para el menú móvil igual a la navegación principal */
-            .nav-links::before {
-                content: '';
-                position: absolute;
-                inset: 0;
-                z-index: -2;
-                /* El backdrop-filter se ha movido al contenedor padre para separar los filtros */
-                filter: url(#glass-distortion);
-                /* MOBILE MENU COLORS */
-                background: rgba(255, 255, 255, 0.25);
-            }
-            
-            .nav-links::after {
-                content: '';
-                position: absolute;
-                inset: 0;
-                z-index: -1;
-                /* SHADOW SETTINGS AL DESPLEGAR MENÚ MÓVIL */
-                box-shadow: 
-                    inset 2px 2px 1px 0 rgba(255, 255, 255, 0.5),
-                    inset -1px -1px 1px 1px rgba(255, 255, 255, 0.3),
-                    0 6px 12px rgba(0, 0, 0, 0.06), 
-                    0 0 20px rgba(0, 0, 0, 0.04);
-                pointer-events: none;
-            }
-            
             .nav-links.active {
                 opacity: 1;
                 pointer-events: auto;
-                /* El menú ahora aparece con un suave y elegante fade-in (sin lag) */
+                transform: translateY(0);
             }
             .nav-links a {
                 font-size: 0.9rem;
@@ -1251,7 +1152,6 @@
         </defs>
     </svg>
 
-    <!-- MOBILE MENU / NAVEGACIÓN -->
     <nav>
         <div class="logo-container">
             <img src="https://raw.githubusercontent.com/eamxat/Imagenes-Zeqel/a7043297121f9d66c3d701d43d9fedd293209969/Isotipo%20Zeqel.svg" alt="Isotipo Zeqel" class="logo-img">
@@ -1275,15 +1175,12 @@
     <!-- Contenedor Principal de Páginas -->
     <main id="main-content">
         
-        <!-- HERO SECTION (PÁGINA: INICIO) -->
+        <!-- PÁGINA: INICIO -->
         <div id="inicio" class="page active">
             <section class="hero">
                 <div class="hero-content">
-                    <!-- EDIT TITLE HERE -->
                     <h1>Creamos identidad visual.</h1>
-                    <!-- EDIT SUBTITLE HERE -->
                     <div class="subtitle">para personas que construyen algo propio.</div>
-                    <!-- EDIT DESCRIPTION HERE -->
                     <p>Detrás de cada negocio hay una historia que merece ser contada. Ayudamos a emprendedores, marcas y proyectos a construir una identidad visual auténtica, capaz de transmitir confianza, personalidad y propósito.</p>
                     <p>Trabajamos de forma cercana y colaborativa para crear una imagen que refleje quién eres, conecte con las personas adecuadas y acompañe el crecimiento de tu proyecto.</p>
                     <p class="secondary-text"><strong>Porque una marca no se trata solo de cómo se ve, sino de cómo hace sentir.</strong></p>
@@ -1291,29 +1188,14 @@
             </section>
         </div>
 
-        <!-- PROJECTS SECTION (PÁGINA: PROYECTOS) -->
+        <!-- PÁGINA: PROYECTOS -->
         <div id="proyectos" class="page">
             <section class="content-section">
                 <h2 class="content-title">Proyectos</h2>
                 <div class="brands-grid">
-                    
-                    <!-- PROJECT CARD TEMPLATE -->
-                    <!-- DUPLICATE THIS BLOCK TO ADD A NEW PROJECT -->
-                    <!-- Instrucciones de Uso:
-                         1. ¿QUÉ DUPLICAR? Copia desde <div class="brand-card"> hasta su respectivo </div> de cierre.
-                         2. ¿DÓNDE PEGARLO? Pégalo directamente debajo de otra tarjeta existente dentro de <div class="brands-grid">.
-                         3. ¿CÓMO CAMBIAR IMAGEN? Reemplaza el <span class="brand-placeholder">...</span> por una etiqueta <img src="URL_DE_TU_IMAGEN">.
-                         4. ¿CÓMO AÑADIR ENLACE? Envuelve todo el contenido interior con una etiqueta <a href="..."> o añade un evento onclick al div.
-                         5. ¿CÓMO ELIMINAR O REORDENAR? Simplemente borra el bloque completo o muévelo hacia arriba/abajo en el código.
-                    -->
                     <div class="brand-card"><span class="brand-placeholder">Marca 01</span></div>
-                    
-                    <!-- PROJECT CARD TEMPLATE -->
                     <div class="brand-card"><span class="brand-placeholder">Marca 02</span></div>
-                    
-                    <!-- PROJECT CARD TEMPLATE -->
                     <div class="brand-card"><span class="brand-placeholder">Marca 03</span></div>
-                    
                     <div class="brand-card"><span class="brand-placeholder">Marca 04</span></div>
                     <div class="brand-card"><span class="brand-placeholder">Marca 05</span></div>
                     <div class="brand-card"><span class="brand-placeholder">Marca 06</span></div>
@@ -1322,7 +1204,7 @@
                     <div class="brand-card"><span class="brand-placeholder">Marca 09</span></div>
                 </div>
 
-                <!-- SECCIÓN DE HERRAMIENTAS / PATROCINADORES -->
+                <!-- NUEVA SECCIÓN DE HERRAMIENTAS / PATROCINADORES -->
                 <div class="sponsors-section">
                     <div class="sponsors-flex">
                         <div class="sponsor-item">
@@ -1377,49 +1259,24 @@
             </section>
         </div>
 
-        <!-- RESOURCES SECTION (PÁGINA: RECURSOS) -->
+        <!-- PÁGINA: RECURSOS -->
         <div id="recursos" class="page">
             <section class="content-section">
                 <h2 class="content-title">Recursos</h2>
-                <!-- EDIT DESCRIPTION HERE -->
                 <p style="opacity: 0.8; max-width: 650px; margin-bottom: 3rem; font-size: 1.15rem;">Herramientas, mockups y assets creados en nuestro estudio, compartidos para la comunidad creativa.</p>
-                
                 <div class="grid-layout">
-                    <!-- RESOURCE CARD TEMPLATE -->
-                    <!-- DUPLICATE THIS BLOCK TO ADD A NEW RESOURCE -->
-                    <!-- Instrucciones de Uso:
-                         1. ¿QUÉ DUPLICAR? Copia desde <div class="card" style="cursor: default;"> hasta su respectivo </div> de cierre.
-                         2. ¿CÓMO EDITAR TEXTOS? 
-                            - RESOURCE TITLE: Edita el texto dentro de la etiqueta <h3>.
-                            - RESOURCE DESCRIPTION: Edita el texto dentro de la etiqueta <p>.
-                         3. ¿CÓMO CAMBIAR IMAGEN/GIF? Sustituye el <span> por una etiqueta <img src="URL"> dentro del contenedor .gif-preview.
-                         4. ¿CÓMO CAMBIAR ENLACES?
-                            - RESOURCE URL: Cambia el atributo href="#" en el <a> con la clase .action-btn.
-                         5. ¿CÓMO CAMBIAR TEXTO DE BOTÓN?
-                            - RESOURCE BUTTON: Modifica la palabra "Descargar" dentro de la etiqueta <a>.
-                         6. ¿CÓMO ELIMINAR? Borra el bloque entero <div class="card">...</div>.
-                    -->
                     <div class="card" style="cursor: default;">
                         <div class="gif-preview"><span class="brand-placeholder">Vista Previa</span></div>
-                        <!-- RESOURCE TITLE -->
                         <h3>Mockups de Papelería</h3>
-                        <!-- RESOURCE DESCRIPTION -->
                         <p>Set de mockups minimalistas en alta resolución para presentaciones de branding corporativo.</p>
-                        <div class="card-actions">
-                            <!-- RESOURCE BUTTON & URL -->
-                            <a href="#" target="_blank" class="action-btn primary">Descargar</a>
-                        </div>
+                        <div class="card-actions"><a href="#" target="_blank" class="action-btn primary">Descargar</a></div>
                     </div>
-                    
-                    <!-- RESOURCE CARD TEMPLATE -->
                     <div class="card" style="cursor: default;">
                         <div class="gif-preview"><span class="brand-placeholder">Vista Previa</span></div>
                         <h3>Pinceles Texturizados (PS)</h3>
                         <p>Colección de pinceles para Adobe Photoshop, ideales para agregar texturas orgánicas a tus diseños.</p>
                         <div class="card-actions"><a href="#" target="_blank" class="action-btn primary">Descargar</a></div>
                     </div>
-                    
-                    <!-- RESOURCE CARD TEMPLATE -->
                     <div class="card" style="cursor: default;">
                         <div class="gif-preview"><span class="brand-placeholder">Vista Previa</span></div>
                         <h3>Plantillas para IG</h3>
@@ -1430,40 +1287,20 @@
             </section>
         </div>
 
-        <!-- OPEN SOURCE SECTION (PÁGINA: CÓDIGO ABIERTO) -->
+        <!-- PÁGINA: CÓDIGO ABIERTO -->
         <div id="codigo-abierto" class="page">
             <section class="content-section">
                 <h2 class="content-title">Código Abierto</h2>
-                
                 <div class="grid-layout">
-                    <!-- OPEN SOURCE CARD TEMPLATE -->
-                    <!-- DUPLICATE THIS BLOCK TO ADD A NEW OPEN SOURCE PROJECT -->
-                    <!-- Instrucciones de Uso:
-                         1. ¿QUÉ DUPLICAR? Copia desde <div class="card" style="cursor: default;"> hasta su respectivo </div> de cierre.
-                         2. ¿CÓMO EDITAR TEXTOS?
-                            - REPOSITORY NAME: Edita el texto dentro de la etiqueta <h3>.
-                            - REPOSITORY DESCRIPTION: Edita el texto dentro de la etiqueta <p>.
-                         3. ¿CÓMO MODIFICAR ENLACES GITHUB?
-                            - GITHUB URL PARA COPIAR: Cambia el atributo data-url="URL_DEL_REPOSITORIO" en el <button>.
-                            - GITHUB URL DEL BOTÓN PRIMARIO: Cambia el href="URL_DEL_REPOSITORIO" en la etiqueta <a>.
-                         4. ¿CÓMO MODIFICAR TEXTO DE BOTONES?
-                            - BUTTON TEXT: Edita "Copiar Enlace" o "Abrir GitHub" / "Ver Proyecto".
-                         5. ¿CÓMO REORGANIZAR? Corta y pega los bloques <div class="card"> enteros en el orden deseado dentro del grid.
-                    -->
                     <div class="card" style="cursor: default;">
                         <div class="gif-preview"><span class="brand-placeholder">GIF Vista Previa</span></div>
-                        <!-- REPOSITORY NAME -->
                         <h3>Zeqel UI Library</h3>
-                        <!-- REPOSITORY DESCRIPTION -->
                         <p>Colección de componentes minimalistas, accesibles y listos para usar en tus próximos proyectos web.</p>
                         <div class="card-actions">
                             <button class="action-btn copy-btn" data-url="https://github.com/eamxat/zeqel-ui">Copiar Enlace</button>
-                            <!-- GITHUB URL & BUTTON TEXT -->
                             <a href="https://github.com/eamxat/zeqel-ui" target="_blank" class="action-btn primary">Abrir GitHub</a>
                         </div>
                     </div>
-                    
-                    <!-- OPEN SOURCE CARD TEMPLATE -->
                     <div class="card" style="cursor: default;">
                         <div class="gif-preview"><span class="brand-placeholder">GIF Vista Previa</span></div>
                         <h3>Canvas Animations</h3>
@@ -1473,8 +1310,6 @@
                             <a href="https://github.com/eamxat/canvas-animations" target="_blank" class="action-btn primary">Abrir GitHub</a>
                         </div>
                     </div>
-                    
-                    <!-- OPEN SOURCE CARD TEMPLATE -->
                     <div class="card" style="cursor: default;">
                         <div class="gif-preview">
                             <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fondo Animado 2">
@@ -1490,21 +1325,18 @@
             </section>
         </div>
 
-        <!-- CONTACT SECTION (PÁGINA: CONTACTO) -->
+        <!-- PÁGINA: CONTACTO -->
         <div id="contacto" class="page">
             <section class="content-section">
-                <!-- EDIT TITLE HERE -->
                 <h2 class="content-title">Iniciemos algo grande.</h2>
                 <div class="contact-wrapper">
                     <div>
                         <span class="label">Escríbenos</span>
-                        <!-- EDIT CONTACT INFO HERE -->
                         <a href="mailto:zeqel.studio@gmail.com" class="contact-link">zeqel.studio@gmail.com</a>
                     </div>
                     <div>
                         <span class="label">Nuestras Redes</span>
                         <div class="social-links">
-                            <!-- EDIT SOCIAL LINKS HERE -->
                             <a href="#" target="_blank" title="Instagram">
                                 <svg class="social-icon" viewBox="0 0 24 24">
                                     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
@@ -1521,10 +1353,9 @@
             </section>
         </div>
 
-        <!-- PRIVACY POLICY (PÁGINA: PRIVACIDAD) -->
+        <!-- PÁGINA: PRIVACIDAD -->
         <div id="privacidad" class="page">
             <section class="content-section">
-                <!-- EDIT TITLE HERE -->
                 <h2 class="content-title">Política de Privacidad</h2>
                 <div class="legal-content">
                     <p class="last-updated">Última actualización: Junio de 2026</p>
@@ -1591,168 +1422,8 @@
             </section>
         </div>
 
-        <!-- TERMS AND CONDITIONS (PÁGINA: TÉRMINOS) -->
-        <div id="terminos" class="page">
-            <section class="content-section">
-                <!-- EDIT TITLE HERE -->
-                <h2 class="content-title">Términos y Condiciones de Uso</h2>
-                <div class="legal-content">
-                    <p class="last-updated">Última actualización: Junio de 2026</p>
-
-                    <h3>1. INFORMACIÓN GENERAL</h3>
-                    <p>Este sitio web es propiedad y está gestionado por ZEQEL Estudio Creativo. ZEQEL es un proyecto creativo independiente dedicado al diseño, desarrollo y creación de recursos digitales.</p>
-                    <p>El presente sitio web tiene como finalidad presentar proyectos creativos, mostrar trabajos de portafolio, compartir recursos relacionados con diseño gráfico, desarrollo, creatividad digital y proporcionar acceso a proyectos, herramientas y repositorios públicos.</p>
-                    <p>Al acceder, navegar o utilizar este sitio web, aceptas los presentes Términos y Condiciones de Uso. Si no estás de acuerdo con cualquiera de las disposiciones aquí establecidas, deberás abstenerte de utilizar el sitio.</p>
-                    <p>ZEQEL Estudio Creativo se reserva el derecho de modificar, actualizar o eliminar contenidos, recursos y funcionalidades del sitio cuando lo considere necesario para su correcto funcionamiento o evolución.</p>
-
-                    <h3>2. OBJETO DEL SITIO WEB</h3>
-                    <p>Este sitio web tiene como finalidad:</p>
-                    <ul>
-                        <li>Mostrar el portafolio y trabajos desarrollados por ZEQEL.</li>
-                        <li>Compartir recursos gratuitos relacionados con diseño y creatividad.</li>
-                        <li>Difundir proyectos personales y profesionales.</li>
-                        <li>Compartir proyectos de código abierto.</li>
-                        <li>Facilitar el acceso a herramientas, recursos y contenido de interés para la comunidad creativa.</li>
-                        <li>Mantener canales de comunicación y presencia digital de ZEQEL.</li>
-                    </ul>
-                    <p>Todo el contenido publicado tiene carácter informativo, educativo, creativo o demostrativo.</p>
-
-                    <h3>3. USO ACEPTABLE DEL SITIO</h3>
-                    <p>El usuario se compromete a utilizar este sitio web de manera legal, responsable y respetuosa.</p>
-                    <p>Queda prohibido:</p>
-                    <ul>
-                        <li>Utilizar el sitio para actividades ilícitas o fraudulentas.</li>
-                        <li>Intentar obtener acceso no autorizado a sistemas, servidores o recursos relacionados con el sitio.</li>
-                        <li>Introducir malware, virus, scripts maliciosos o cualquier elemento que pueda afectar el funcionamiento del sitio.</li>
-                        <li>Utilizar sistemas automatizados para recopilar masivamente información del sitio sin autorización.</li>
-                        <li>Suplantar la identidad de terceros.</li>
-                        <li>Realizar actividades que puedan perjudicar la disponibilidad o seguridad del sitio.</li>
-                    </ul>
-                    <p>ZEQEL podrá restringir o bloquear el acceso a cualquier usuario que incumpla estas condiciones.</p>
-
-                    <h3>4. PROPIEDAD INTELECTUAL</h3>
-                    <p>Salvo indicación expresa en contrario, todos los contenidos originales publicados en este sitio son propiedad intelectual de ZEQEL Estudio Creativo.</p>
-                    <p>Esto incluye, entre otros:</p>
-                    <ul>
-                        <li>Diseños gráficos.</li>
-                        <li>Identidades visuales.</li>
-                        <li>Logotipos.</li>
-                        <li>Interfaces de usuario.</li>
-                        <li>Ilustraciones.</li>
-                        <li>Textos.</li>
-                        <li>Recursos originales.</li>
-                        <li>Código desarrollado por ZEQEL.</li>
-                        <li>Conceptos creativos.</li>
-                        <li>Proyectos de portafolio.</li>
-                        <li>Material audiovisual.</li>
-                        <li>Documentación y publicaciones.</li>
-                    </ul>
-                    <p>La publicación de cualquier contenido en este sitio no implica la cesión de derechos de autor, propiedad intelectual o explotación comercial.</p>
-
-                    <h3>5. RECURSOS GRATUITOS</h3>
-                    <p>ZEQEL puede ofrecer recursos gratuitos para descarga, incluyendo:</p>
-                    <ul>
-                        <li>Plantillas.</li>
-                        <li>Mockups.</li>
-                        <li>Archivos gráficos.</li>
-                        <li>Recursos visuales.</li>
-                        <li>Fragmentos de código.</li>
-                        <li>Herramientas.</li>
-                        <li>Material educativo.</li>
-                        <li>Recursos para diseñadores y desarrolladores.</li>
-                    </ul>
-                    <p>Salvo que se indique expresamente lo contrario, dichos recursos se proporcionan "tal cual", sin garantías de ningún tipo.</p>
-                    <p>El usuario es responsable de verificar la compatibilidad, adecuación y funcionamiento de cualquier recurso antes de utilizarlo en proyectos personales o comerciales.</p>
-
-                    <h3>6. PROYECTOS DE CÓDIGO ABIERTO</h3>
-                    <p>Este sitio puede enlazar a repositorios públicos o proyectos de código abierto.</p>
-                    <p>Cada proyecto podrá estar sujeto a licencias específicas que determinarán los permisos, restricciones y condiciones de uso correspondientes.</p>
-                    <p>El usuario deberá revisar las condiciones de cada repositorio antes de reutilizar, modificar, distribuir o integrar cualquier proyecto en sus propios trabajos.</p>
-
-                    <h3>7. ENLACES EXTERNOS</h3>
-                    <p>Este sitio puede contener enlaces hacia servicios, plataformas o recursos administrados por terceros.</p>
-                    <p>Entre ellos:</p>
-                    <ul>
-                        <li>GitHub.</li>
-                        <li>Instagram.</li>
-                        <li>Discord.</li>
-                        <li>Google Drive.</li>
-                        <li>Plataformas de almacenamiento.</li>
-                        <li>Herramientas externas.</li>
-                        <li>Sitios web colaboradores.</li>
-                        <li>Recursos de terceros.</li>
-                    </ul>
-                    <p>ZEQEL no controla ni garantiza la disponibilidad, seguridad, exactitud o contenido de dichos sitios externos.</p>
-                    <p>El acceso a enlaces de terceros se realiza bajo la exclusiva responsabilidad del usuario.</p>
-
-                    <h3>8. DISPONIBILIDAD DEL SITIO</h3>
-                    <p>Aunque se realizan esfuerzos razonables para mantener el sitio disponible y actualizado, ZEQEL no garantiza:</p>
-                    <ul>
-                        <li>Disponibilidad permanente.</li>
-                        <li>Ausencia de errores.</li>
-                        <li>Ausencia de interrupciones.</li>
-                        <li>Compatibilidad con todos los dispositivos o navegadores.</li>
-                    </ul>
-                    <p>ZEQEL podrá modificar, actualizar, reorganizar o eliminar cualquier contenido, recurso o funcionalidad del sitio en cualquier momento y sin previo aviso.</p>
-
-                    <h3>9. EXCLUSIÓN DE RESPONSABILIDAD</h3>
-                    <p>Toda la información, recursos y contenidos publicados se proporcionan con fines informativos, educativos y creativos.</p>
-                    <p>ZEQEL no garantiza que el contenido sea completamente exacto, actualizado o adecuado para todas las situaciones particulares.</p>
-                    <p>En ningún caso ZEQEL será responsable por:</p>
-                    <ul>
-                        <li>Pérdidas económicas.</li>
-                        <li>Pérdida de datos.</li>
-                        <li>Interrupciones de actividad.</li>
-                        <li>Daños directos o indirectos.</li>
-                        <li>Problemas derivados del uso de recursos descargados.</li>
-                        <li>Errores en proyectos o código reutilizado.</li>
-                        <li>Fallos de plataformas o servicios de terceros.</li>
-                    </ul>
-                    <p>El uso del contenido publicado se realiza bajo la responsabilidad exclusiva del usuario.</p>
-
-                    <h3>10. COMUNIDAD Y COMUNICACIONES</h3>
-                    <p>Los usuarios que contacten con ZEQEL mediante correo electrónico, Discord, redes sociales u otros canales de comunicación deberán mantener una conducta respetuosa y adecuada.</p>
-                    <p>ZEQEL se reserva el derecho de ignorar, bloquear o restringir comunicaciones que incluyan:</p>
-                    <ul>
-                        <li>Acoso.</li>
-                        <li>Spam.</li>
-                        <li>Suplantación de identidad.</li>
-                        <li>Contenido ilegal.</li>
-                        <li>Amenazas.</li>
-                        <li>Conductas abusivas o perjudiciales.</li>
-                    </ul>
-
-                    <h3>11. MODIFICACIONES DE LOS TÉRMINOS</h3>
-                    <p>ZEQEL podrá modificar, actualizar o reemplazar estos Términos y Condiciones en cualquier momento.</p>
-                    <p>Las modificaciones entrarán en vigor desde el momento de su publicación en esta página.</p>
-                    <p>Se recomienda revisar periódicamente este documento para mantenerse informado sobre posibles cambios.</p>
-
-                    <h3>12. LEGISLACIÓN APLICABLE</h3>
-                    <p>Estos Términos y Condiciones se interpretarán conforme a la legislación aplicable en la jurisdicción correspondiente al titular del sitio web, sin perjuicio de los derechos que puedan corresponder a los usuarios conforme a las leyes de sus respectivos países.</p>
-
-                    <h3>13. CONTACTO</h3>
-                    <p>Para cualquier consulta relacionada con estos Términos y Condiciones, puedes utilizar los medios de contacto publicados en este sitio web o en las redes oficiales de ZEQEL Estudio Creativo.</p>
-
-                    <h3>14. RESERVA DE DERECHOS</h3>
-                    <p>ZEQEL se reserva todos los derechos no expresamente concedidos en estos Términos y Condiciones.</p>
-                    <p>La publicación de contenido en este sitio no constituye una autorización para reproducir, distribuir, modificar o explotar dicho contenido fuera de los límites permitidos por la legislación aplicable o por las licencias expresamente indicadas.</p>
-
-                    <h3>15. PROTECCIÓN DE CONTENIDO Y PROPIEDAD CREATIVA</h3>
-                    <p>Todos los diseños, conceptos visuales, propuestas gráficas, identidades visuales, interfaces, recursos originales, proyectos creativos, código original, textos, documentación y demás contenidos publicados en este sitio son propiedad intelectual de ZEQEL Estudio Creativo, salvo indicación expresa en contrario.</p>
-                    <p>La publicación de trabajos, bocetos, conceptos, procesos creativos o proyectos en este sitio no implica la cesión de derechos de explotación, reproducción, distribución, modification o uso comercial.</p>
-                    <p>Queda prohibida la copia, reproducción, adaptación, comercialización o utilización de cualquier contenido original de este sitio con fines comerciales sin autorización previa y expresa de ZEQEL Estudio Creativo.</p>
-                    <p>Asimismo, queda prohibido presentar como propios diseños, conceptos creativos, elementos gráficos, identidades visuales o proyectos desarrollados por ZEQEL.</p>
-                    <p>La inspiración y referencia visual forman parte natural del proceso creativo; sin embargo, la reproducción sustancial o el uso no autorizado de obras originales podrá dar lugar a las acciones que correspondan conforme a la legislación aplicable en materia de propiedad intelectual y derechos de autor.</p>
-                    <p>La ausencia de una marca registrada, patente o registro formal no implica renuncia alguna a los derechos de autor o de propiedad intelectual que correspondan a ZEQEL Estudio Creativo sobre las obras y contenidos originales publicados en este sitio.</p>
-                    
-                    <p><br><strong>© 2026 ZEQEL Estudio Creativo. Todos los derechos reservados.</strong></p>
-                </div>
-            </section>
-        </div>
-
     </main>
 
-    <!-- FOOTER -->
     <footer>
         <div class="footer-brand">
             <div class="footer-logo-wrapper">
@@ -1767,13 +1438,11 @@
                     &copy; Zeqel / Todos los derechos reservados.
                 </div>
                 <div class="legal-links">
-                    <!-- EDIT LEGAL LINKS HERE -->
-                    <a href="#privacidad">Política de privacidad</a><span>|</span><a href="#terminos">Términos y condiciones</a>
+                    <a href="#privacidad">Política de privacidad</a><span>|</span><a href="#">Términos y condiciones</a>
                 </div>
             </div>
             <div class="location">
                 <div id="real-time-clock" class="clock"></div>
-                <!-- EDIT LOCATION HERE -->
                 Ensenada, B.C.<br>
                 México
             </div>
@@ -1885,7 +1554,7 @@
 
         // Navegación SPA
         document.addEventListener('DOMContentLoaded', () => {
-            const navLinks = document.querySelectorAll('.nav-links a, .legal-links a');
+            const navLinks = document.querySelectorAll('.nav-links a, .legal-links a[href="#privacidad"]');
             const logo = document.querySelector('.logo-container');
             const pages = document.querySelectorAll('.page');
             const copyButtons = document.querySelectorAll('.copy-btn');
