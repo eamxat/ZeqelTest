@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Zeqel Brand STUDIO<!--  --></title>
+    <title>Zeqel Estudio | 2026</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
         :root {
             --bg-color: #F4EFEA;
@@ -14,9 +14,7 @@
             --light-blue: #73C2FB;
             --border-color: rgba(26, 28, 32, 0.1);
             
-            /* 👇 MODIFICADOR GLOBAL DE TEXTOS DE INICIO 👇 */
-            /* Cambia este único número para ajustar todo proporcionalmente.
-               1 = Tamaño normal | 0.85 = 15% más pequeño | 1.2 = 20% más grande */
+            /* MODIFICADOR GLOBAL DE TEXTOS DE INICIO */
             --hero-text-scale: 0.85;
         }
 
@@ -24,7 +22,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -32,6 +30,7 @@
         html, body {
             overflow-x: hidden;
             width: 100%;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -54,7 +53,6 @@
             background-image: url('https://cdn.pixabay.com/photo/2018/08/14/22/00/blue-sky-3606717_1280.jpg');
             background-size: cover;
             background-position: center top;
-            /* Se aumentó la saturación y ajustó contraste para hacer el cielo más presente pero natural */
             filter: saturate(0.85) contrast(0.95) brightness(1.05);
             opacity: 0.78;
             z-index: -2;
@@ -75,7 +73,6 @@
                 rgba(0,0,0,0.25) 68%,
                 rgba(0,0,0,0) 85%
             );
-            /* Animación suave y garantizada de elevación usando transform */
             transform-origin: center center;
             will-change: transform;
             animation: elevateSky 24s ease-in-out infinite alternate;
@@ -96,7 +93,6 @@
             height: 100dvh;
             z-index: -2;
             pointer-events: none;
-            /* La máscara se aplica al contenedor para que todas las nubes se desvanezcan perfecto abajo */
             -webkit-mask-image: linear-gradient(
                 to bottom,
                 rgba(0,0,0,1) 0%,
@@ -115,7 +111,6 @@
             );
         }
 
-        /* Degradado azul fijo en la parte superior del cielo */
         #clouds-container::after {
             content: '';
             position: absolute;
@@ -123,7 +118,6 @@
             left: 0;
             width: 100vw;
             height: 50vh;
-            /* Opacidad exacta del 20% usando el RGB de #1A7392 */
             background: linear-gradient(to bottom, rgba(26, 115, 146, 0.2) 0%, rgba(26, 115, 146, 0) 100%);
             z-index: 10;
             pointer-events: none;
@@ -138,7 +132,6 @@
             will-change: transform;
         }
 
-        /* Capa 1: Lejana (Nubes pequeñas, lentas) */
         .cloud-layer-1 {
             --size: 350px;
             left: calc(var(--size) * -1);
@@ -149,7 +142,6 @@
             animation: driftClouds 50s linear infinite;
         }
 
-        /* Capa 2: Media (Nubes medianas, velocidad media, dirección opuesta) */
         .cloud-layer-2 {
             --size: 550px;
             left: calc(var(--size) * -1);
@@ -160,7 +152,6 @@
             animation: driftCloudsReverse 40s linear infinite;
         }
 
-        /* Capa 3: Cercana (Nubes grandes, rápidas) */
         .cloud-layer-3 {
             --size: 850px;
             left: calc(var(--size) * -1);
@@ -171,7 +162,6 @@
             animation: driftClouds 25s linear infinite;
         }
 
-        /* Animaciones seamless infinitas impulsadas por GPU */
         @keyframes driftClouds {
             0% { transform: translate3d(0, 0, 0); }
             100% { transform: translate3d(var(--size), 0, 0); }
@@ -201,7 +191,7 @@
             pointer-events: none;
         }
 
-        /* --- Grain canvas global — cubre toda la web en todas las páginas --- */
+        /* --- Grain canvas global --- */
         #grain-canvas {
             position: fixed;
             top: 0;
@@ -210,12 +200,12 @@
             height: 100vh;
             pointer-events: none;
             z-index: 9999;
-            opacity: 0.038;
+            opacity: 0.042;
             mix-blend-mode: multiply;
         }
 
         /* =========================================================
-           SISTEMA LIQUID Glass PREMIUM (visionOS / macOS Style)
+           SISTEMA LIQUID GLASS PREMIUM (visionOS / macOS Style)
            ========================================================= */
         nav {
             position: fixed;
@@ -226,71 +216,53 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            
-            /* Contenedor transparente, los pseudo-elementos hacen el trabajo */
             background: transparent;
             border: none;
             box-shadow: none;
-            
-            /* Transición extremadamente suave para la elevación */
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1);
         }
 
-        /* Capa 1: .liquidGlass-effect y .liquidGlass-tint combinados */
         nav::before {
             content: '';
             position: absolute;
             inset: 0;
             z-index: -2;
-            
-            /* Blur base y distorsión líquida */
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
             filter: url(#glass-distortion);
-            
-            /* Tint súper sutil inicial */
             background: rgba(255, 255, 255, 0.05);
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1);
         }
 
-        /* Capa 2: .liquidGlass-shine y sombras base */
         nav::after {
             content: '';
             position: absolute;
             inset: 0;
             z-index: -1;
-            
-            /* Shine sutil inicial */
             box-shadow: 
                 inset 1px 1px 1px 0 rgba(255, 255, 255, 0.2),
                 inset -1px -1px 1px 0 rgba(255, 255, 255, 0.05);
-                
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1);
             pointer-events: none;
         }
 
-        /* --- Estado Scrolled: Sensación de Ascenso y Flotación --- */
         nav.nav-scrolled {
-            /* Ligera compresión vertical que da la ilusión óptica de despegue */
             padding: 1rem 3rem; 
         }
 
         nav.nav-scrolled::before {
-            /* El blur y el tint aumentan sutilmente al ascender, como alejándose del fondo */
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            background: rgba(255, 255, 255, 0.25); /* Tint exacto de tu referencia */
+            background: rgba(255, 255, 255, 0.25);
         }
 
         nav.nav-scrolled::after {
-            /* Shine interno más pronunciado y sombra exterior suave (tu referencia) */
             box-shadow: 
                 inset 2px 2px 1px 0 rgba(255, 255, 255, 0.5),
                 inset -1px -1px 1px 1px rgba(255, 255, 255, 0.3),
                 0 6px 12px rgba(0, 0, 0, 0.06), 
                 0 0 20px rgba(0, 0, 0, 0.04);
         }
-        /* ========================================================= */
 
         .logo-container {
             display: flex;
@@ -341,7 +313,6 @@
             color: var(--accent-blue);
         }
 
-        /* --- Botón Hamburguesa (Móvil) --- */
         .mobile-menu-btn {
             display: none;
             background: transparent;
@@ -443,7 +414,7 @@
             text-transform: uppercase;
             letter-spacing: 3px;
             color: var(--accent-blue);
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 1.5rem;
             display: block;
         }
@@ -670,13 +641,13 @@
             font-size: clamp(1.8rem, 4vw, 3.5rem);
             color: var(--text-color);
             text-decoration: none;
-            transition: none;
+            transition: color 0.3s ease;
             display: inline-block;
             word-break: break-word;
         }
 
         .contact-link:hover {
-            color: var(--text-color);
+            color: var(--accent-blue);
         }
 
         .social-links {
@@ -690,18 +661,18 @@
             height: 32px;
             fill: var(--text-color);
             opacity: 0.7;
-            transition: opacity 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .social-icon:hover {
             opacity: 1;
-            fill: var(--text-color);
-            transform: none;
+            fill: var(--accent-blue);
+            transform: scale(1.1);
         }
 
         .brands-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
             gap: 1.5rem;
         }
 
@@ -710,51 +681,61 @@
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             border: 1px solid var(--border-color);
-            border-radius: 2px;
-            aspect-ratio: 1 / 1;
+            border-radius: 4px;
+            aspect-ratio: 1.2 / 1;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 2.5rem;
+            padding: 2rem;
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(26, 115, 146, 0.05) 0%, rgba(26, 115, 146, 0) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .brand-card:hover::before {
+            opacity: 1;
         }
 
         .brand-card:hover {
             transform: translateY(-8px);
-            background: rgba(26, 115, 146, 0.08);
+            background: rgba(255, 255, 255, 0.6);
             border-color: rgba(26, 115, 146, 0.4);
-            box-shadow: 0 10px 30px rgba(26, 115, 146, 0.1);
+            box-shadow: 0 10px 30px rgba(26, 115, 146, 0.06);
         }
 
-        .brand-card img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            opacity: 0.5;
-            filter: grayscale(100%);
-            transition: all 0.4s ease;
+        .brand-card .brand-name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: var(--text-color);
+            margin-bottom: 0.3rem;
+            z-index: 1;
+            transition: color 0.3s ease;
         }
 
-        .brand-card:hover img {
-            opacity: 1;
-            filter: grayscale(0%);
-            transform: scale(1.05);
+        .brand-card:hover .brand-name {
+            color: var(--accent-blue);
         }
 
-        .brand-placeholder {
-            font-size: 0.8rem;
+        .brand-card .brand-category {
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--text-color);
-            opacity: 0.4;
-            transition: opacity 0.3s ease, color 0.3s ease;
-            text-align: center;
-        }
-
-        .brand-card:hover .brand-placeholder {
-            opacity: 1;
-            color: var(--accent-blue);
+            opacity: 0.5;
+            z-index: 1;
         }
 
         /* --- Sponsors Section --- */
@@ -811,7 +792,6 @@
             color: var(--text-color);
         }
 
-        /* Fade-in Secuencial */
         .page.active .sponsor-item {
             animation: sponsorFadeIn 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
@@ -922,10 +902,6 @@
             background-color: transparent;
         }
 
-        footer:hover {
-            opacity: 1;
-        }
-
         .footer-brand {
             display: flex;
             justify-content: center;
@@ -979,10 +955,6 @@
             opacity: 0.85;
         }
 
-        .footer-tiger-icon:hover {
-            opacity: 0.85;
-        }
-
         .clock {
             font-size: 0.7rem;
             margin-bottom: 0.4rem;
@@ -1000,10 +972,11 @@
         .legal-links a {
             color: var(--text-color);
             text-decoration: none;
+            transition: color 0.3s ease;
         }
 
         .legal-links a:hover {
-            color: var(--text-color);
+            color: var(--accent-blue);
         }
 
         .legal-links span {
@@ -1015,6 +988,197 @@
             text-align: right;
         }
 
+        /* --- Sistema interactivo de Modales (Drawer de Detalle) --- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(26, 28, 32, 0.4);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            justify-content: flex-end;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--bg-color);
+            border-left: 1px solid var(--border-color);
+            height: 100%;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.05);
+            padding: 4rem 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-y: auto;
+            transform: translateX(100%);
+            transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .modal-overlay.active .modal-container {
+            transform: translateX(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-close:hover {
+            opacity: 1;
+        }
+
+        .modal-body h4 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+        }
+
+        .modal-body h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 3rem;
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+        }
+
+        .modal-body p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .project-color-palette {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .color-bubble {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .color-bubble::after {
+            content: attr(data-hex);
+            position: absolute;
+            bottom: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.65rem;
+            font-family: monospace;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .color-bubble:hover::after {
+            opacity: 1;
+        }
+
+        /* --- Estilos interactivos para vistas previas de recursos --- */
+        .preview-stationery {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #e4ded7 0%, #dbd4cb 100%);
+            perspective: 600px;
+        }
+
+        .preview-stationery-sheet {
+            width: 100px;
+            height: 140px;
+            background: white;
+            box-shadow: 2px 5px 15px rgba(0,0,0,0.08);
+            transform: rotateX(20deg) rotateY(-15deg);
+            transition: transform 0.5s ease;
+            position: relative;
+            padding: 15px;
+        }
+
+        .preview-stationery-sheet::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 30px;
+            height: 8px;
+            background: var(--accent-blue);
+        }
+
+        .preview-stationery:hover .preview-stationery-sheet {
+            transform: rotateX(10deg) rotateY(-5deg) translateY(-10px);
+        }
+
+        .preview-canvas-nodes {
+            width: 100%;
+            height: 100%;
+            background: #111;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-node {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #73C2FB;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #73C2FB;
+            animation: floatNode 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatNode {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-15px) translateX(15px); }
+        }
+
+        .preview-grid {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            padding: 10px;
+            background: #fafafa;
+        }
+
+        .preview-grid-item {
+            background: linear-gradient(45deg, #f4efea, #73c2fb22);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .preview-grid:hover .preview-grid-item {
+            filter: saturate(1.5);
+            transform: scale(0.98);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             nav {
@@ -1024,7 +1188,6 @@
                 align-items: center;
                 gap: 0;
             }
-            /* Mantenemos el efecto liquid fluid en móvil sin alterar layout */
             nav.nav-scrolled {
                 padding: 0.8rem 5%;
             }
@@ -1048,7 +1211,6 @@
                 gap: 2.5rem;
                 border-bottom: 1px solid rgba(26, 28, 32, 0.05);
                 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-                
                 opacity: 0;
                 pointer-events: none;
                 transform: translateY(-10px);
@@ -1064,12 +1226,12 @@
                 padding: 0.5rem 1rem;
             }
             .hero {
-                padding: 120px 5% 60px; /* Espaciado extra superior para evitar solapamientos con la barra */
+                padding: 120px 5% 60px;
                 height: auto;
                 min-height: 100vh;
                 text-align: center;
                 align-items: center;
-                justify-content: flex-start; /* Permite fluidez natural del contenido hacia abajo */
+                justify-content: flex-start;
             }
             .hero-content {
                 margin-top: 2rem;
@@ -1129,6 +1291,9 @@
             .location {
                 text-align: center;
             }
+            .modal-container {
+                padding: 4rem 1.5rem;
+            }
         }
     </style>
 </head>
@@ -1148,19 +1313,9 @@
     <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
         <defs>
             <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%">
-                <!-- Ruido fractal orgánico de ondas largas y fluidas -->
                 <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="1" result="noise" />
-                <!-- Modificador para suavizar la intensidad y que actúe como líquido cristalino -->
                 <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.8 0" in="noise" result="coloredNoise" />
-                <!-- Desplazamiento sutil pero visible (refracción) -->
                 <feDisplacementMap in="SourceGraphic" in2="coloredNoise" scale="6" xChannelSelector="R" yChannelSelector="G" result="displaced" />
-            </filter>
-            <!-- Mantengo el filtro frosted por si se requería en algún otro lado del proyecto a futuro -->
-            <filter id="frosted" primitiveUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.65 0.65" numOctaves="2" seed="2" result="noise"/>
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.004" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
-                <feGaussianBlur in="displaced" stdDeviation="0.008" result="blurred"/>
-                <feComposite in="blurred" in2="SourceGraphic" operator="in"/>
             </filter>
         </defs>
     </svg>
@@ -1192,11 +1347,11 @@
         <div id="inicio" class="page active">
             <section class="hero">
                 <div class="hero-content">
-                    <h1>Creamos identidad visual.</h1>
+                    <h1>Diseñamos identidades visuales</h1>
                     <div class="subtitle">para personas que construyen algo propio.</div>
-                    <p>Detrás de cada negocio hay una historia que merece ser contada. Ayudamos a emprendedores, marcas y proyectos a construir una identidad visual auténtica, capaz de transmitir confianza, personalidad y propósito.</p>
-                    <p>Trabajamos de forma cercana y colaborativa para crear una imagen que refleje quién eres, conecte con las personas adecuadas y acompañe el crecimiento de tu proyecto.</p>
-                    <p class="secondary-text"><strong id="typewriter-text">Porque una marca no se trata solo de cómo se ve, sino de cómo hace sentir.</strong></p>
+                    <p>Inspirados por la naturaleza, las texturas orgánicas y los procesos analógicos, exploramos formas de crear marcas auténticas que transmitan personalidad, propósito y una conexión genuina con las personas.</p>
+                    <p>Nuestro enfoque combina experimentación visual, criterio creativo y herramientas contemporáneas para transformar ideas en identidades con carácter y significado.</p>
+                    <p class="secondary-text"><strong id="typewriter-text">Porque una marca no se trata solo de cómo se ve, sino de cómo se siente.</strong></p>
                 </div>
             </section>
         </div>
@@ -1206,18 +1361,45 @@
             <section class="content-section">
                 <h2 class="content-title">Proyectos</h2>
                 <div class="brands-grid">
-                    <div class="brand-card"><span class="brand-placeholder">Marca 01</span></div>
-                    <div class="brand-card"><span class="brand-placeholder">Marca 02</span></div>
-                    <div class="brand-card"><span class="brand-placeholder">Marca 03</span></div>
-                    <div class="brand-card"><span class="brand-placeholder">Marca 04</span></div>
-                    <div class="brand-card"><span class="brand-placeholder">Marca 05</span></div>
-                    <div class="brand-card"><span class="brand-placeholder">Marca 06</span></div>
-                    <div class="brand-card"><span class="brand-placeholder">Marca 07</span></div>
-                    <div class="brand-card"><span class="brand-placeholder">Marca 08</span></div>
-                    <div class="brand-card"><span class="brand-placeholder">Marca 09</span></div>
+                    <div class="brand-card" data-project="aura">
+                        <span class="brand-name">Aura</span>
+                        <span class="brand-category">Editorial & Design</span>
+                    </div>
+                    <div class="brand-card" data-project="neolith">
+                        <span class="brand-name">Neolith</span>
+                        <span class="brand-category">Skincare & Clean Beauty</span>
+                    </div>
+                    <div class="brand-card" data-project="kinetic">
+                        <span class="brand-name">Kinetic</span>
+                        <span class="brand-category">Architecture Studio</span>
+                    </div>
+                    <div class="brand-card" data-project="origen">
+                        <span class="brand-name">Origen</span>
+                        <span class="brand-category">Specialty Coffee</span>
+                    </div>
+                    <div class="brand-card" data-project="lumina">
+                        <span class="brand-name">Lumina</span>
+                        <span class="brand-category">Curated Lighting</span>
+                    </div>
+                    <div class="brand-card" data-project="nomad">
+                        <span class="brand-name">Nomad</span>
+                        <span class="brand-category">Slow Travel Gear</span>
+                    </div>
+                    <div class="brand-card" data-project="vibe">
+                        <span class="brand-name">Vibe</span>
+                        <span class="brand-category">Sonic Art Agency</span>
+                    </div>
+                    <div class="brand-card" data-project="terra">
+                        <span class="brand-name">Terra</span>
+                        <span class="brand-category">Sustainable Wine</span>
+                    </div>
+                    <div class="brand-card" data-project="apex">
+                        <span class="brand-name">Apex</span>
+                        <span class="brand-category">Decentralized Tech</span>
+                    </div>
                 </div>
 
-                <!-- NUEVA SECCIÓN DE HERRAMIENTAS / PATROCINADORES -->
+                <!-- SECCIÓN DE HERRAMIENTAS / PATROCINADORES -->
                 <div class="sponsors-section">
                     <div class="sponsors-flex">
                         <div class="sponsor-item">
@@ -1279,19 +1461,38 @@
                 <p style="opacity: 0.8; max-width: 650px; margin-bottom: 3rem; font-size: 1.15rem;">Herramientas, mockups y assets creados en nuestro estudio, compartidos para la comunidad creativa.</p>
                 <div class="grid-layout">
                     <div class="card" style="cursor: default;">
-                        <div class="gif-preview"><span class="brand-placeholder">Vista Previa</span></div>
+                        <div class="gif-preview">
+                            <div class="preview-stationery">
+                                <div class="preview-stationery-sheet"></div>
+                            </div>
+                        </div>
                         <h3>Mockups de Papelería</h3>
                         <p>Set de mockups minimalistas en alta resolución para presentaciones de branding corporativo.</p>
                         <div class="card-actions"><a href="#" target="_blank" class="action-btn primary">Descargar</a></div>
                     </div>
                     <div class="card" style="cursor: default;">
-                        <div class="gif-preview"><span class="brand-placeholder">Vista Previa</span></div>
+                        <div class="gif-preview">
+                            <div class="preview-canvas-nodes">
+                                <div class="preview-node" style="top:20%; left:20%; animation-delay: 0s;"></div>
+                                <div class="preview-node" style="top:60%; left:70%; animation-delay: 0.5s;"></div>
+                                <div class="preview-node" style="top:40%; left:45%; animation-delay: 1s;"></div>
+                            </div>
+                        </div>
                         <h3>Pinceles Texturizados (PS)</h3>
                         <p>Colección de pinceles para Adobe Photoshop, ideales para agregar texturas orgánicas a tus diseños.</p>
                         <div class="card-actions"><a href="#" target="_blank" class="action-btn primary">Descargar</a></div>
                     </div>
                     <div class="card" style="cursor: default;">
-                        <div class="gif-preview"><span class="brand-placeholder">Vista Previa</span></div>
+                        <div class="gif-preview">
+                            <div class="preview-grid">
+                                <div class="preview-grid-item"></div>
+                                <div class="preview-grid-item"></div>
+                                <div class="preview-grid-item"></div>
+                                <div class="preview-grid-item"></div>
+                                <div class="preview-grid-item"></div>
+                                <div class="preview-grid-item"></div>
+                            </div>
+                        </div>
                         <h3>Plantillas para IG</h3>
                         <p>Layouts editables para Instagram diseñados específicamente para estudios creativos y agencias.</p>
                         <div class="card-actions"><a href="#" target="_blank" class="action-btn primary">Descargar</a></div>
@@ -1306,7 +1507,7 @@
                 <h2 class="content-title">Código Abierto</h2>
                 <div class="grid-layout">
                     <div class="card" style="cursor: default;">
-                        <div class="gif-preview"><span class="brand-placeholder">GIF Vista Previa</span></div>
+                        <div class="gif-preview"><span class="brand-placeholder" style="color:var(--text-color); font-weight:700;">&lt;Zeqel UI /&gt;</span></div>
                         <h3>Zeqel UI Library</h3>
                         <p>Colección de componentes minimalistas, accesibles y listos para usar en tus próximos proyectos web.</p>
                         <div class="card-actions">
@@ -1315,7 +1516,7 @@
                         </div>
                     </div>
                     <div class="card" style="cursor: default;">
-                        <div class="gif-preview"><span class="brand-placeholder">GIF Vista Previa</span></div>
+                        <div class="gif-preview"><span class="brand-placeholder" style="color:var(--accent-blue); font-weight:700;">GL_CANVAS</span></div>
                         <h3>Canvas Animations</h3>
                         <p>Repositorio de fondos interactivos programados en WebGL, ligeros, fluidos y modulares.</p>
                         <div class="card-actions">
@@ -1435,7 +1636,186 @@
             </section>
         </div>
 
+        <!-- PÁGINA: TERMINOS -->
+        <div id="terminos" class="page">
+            <section class="content-section">
+                <h2 class="content-title">Términos y Condiciones</h2>
+                <div class="legal-content">
+                    <p class="last-updated">Última actualización: Junio de 2026</p>
+
+                    <h3>1. INFORMACIÓN GENERAL</h3>
+                    <p>Este sitio web es propiedad y está gestionado por ZEQEL Estudio Creativo. ZEQEL es un proyecto creativo independiente dedicado al diseño, desarrollo y creación de recursos digitales.</p>
+                    <p>El presente sitio web tiene como finalidad presentar proyectos creativos, mostrar trabajos de portafolio, compartir recursos relacionados con diseño gráfico, desarrollo, creatividad digital y proporcionar acceso a proyectos, herramientas y repositorios públicos.</p>
+                    <p>Al acceder, navegar o utilizar este sitio web, aceptas los presentes Términos y Condiciones de Uso. Si no estás de acuerdo con cualquiera de las disposiciones aquí establecidas, deberás abstenerte de utilizar el sitio.</p>
+                    <p>ZEQEL Estudio Creativo se reserva el derecho de modificar, actualizar o eliminar contenidos, recursos y funcionalidades del sitio cuando lo considere necesario para su correcto funcionamiento o evolución.</p>
+
+                    <h3>2. OBJETO DEL SITIO WEB</h3>
+                    <p>Este sitio web tiene como finalidad:</p>
+                    <ul>
+                        <li>Mostrar el portafolio y trabajos desarrollados por ZEQEL.</li>
+                        <li>Compartir recursos gratuitos relacionados con diseño y creatividad.</li>
+                        <li>Difundir proyectos personales y profesionales.</li>
+                        <li>Compartir proyectos de código abierto.</li>
+                        <li>Facilitar el acceso a herramientas, recursos y contenido de interés para la comunidad creativa.</li>
+                        <li>Mantener canales de comunicación y presencia digital de ZEQEL.</li>
+                    </ul>
+                    <p>Todo el contenido publicado tiene carácter informativo, educativo, creativo o demostrativo.</p>
+
+                    <h3>3. USO ACEPTABLE DEL SITIO</h3>
+                    <p>El usuario se compromete a utilizar este sitio web de manera legal, responsable y respetuosa.</p>
+                    <p>Queda prohibido:</p>
+                    <ul>
+                        <li>Utilizar el sitio para actividades ilícitas o fraudulentas.</li>
+                        <li>Intentar obtener acceso no autorizado a sistemas, servidores o recursos relacionados con el sitio.</li>
+                        <li>Introducir malware, virus, scripts maliciosos o cualquier elemento que pueda afectar el funcionamiento del sitio.</li>
+                        <li>Utilizar sistemas automatizados para recopilar masivamente información del sitio sin autorización.</li>
+                        <li>Suplantar la identidad de terceros.</li>
+                        <li>Realizar actividades que puedan perjudicar la disponibilidad o seguridad del sitio.</li>
+                    </ul>
+                    <p>ZEQEL podrá restringir o bloquear el acceso a cualquier usuario que incumpla estas condiciones.</p>
+
+                    <h3>4. PROPIEDAD INTELECTUAL</h3>
+                    <p>Salvo indicación expresa en contrario, todos los contenidos originales publicados en este sitio son propiedad intelectual de ZEQEL Estudio Creativo.</p>
+                    <p>Esto incluye, entre otros:</p>
+                    <ul>
+                        <li>Diseños gráficos.</li>
+                        <li>Identidades visuales.</li>
+                        <li>Logotipos.</li>
+                        <li>Interfaces de usuario.</li>
+                        <li>Ilustraciones.</li>
+                        <li>Textos.</li>
+                        <li>Recursos originales.</li>
+                        <li>Código desarrollado por ZEQEL.</li>
+                        <li>Conceptos creativos.</li>
+                        <li>Proyectos de portafolio.</li>
+                        <li>Material audiovisual.</li>
+                        <li>Documentación y publicaciones.</li>
+                    </ul>
+                    <p>La publicación de cualquier contenido en este sitio no implica la cesión de derechos de autor, propiedad intelectual o explotación comercial.</p>
+
+                    <h3>5. RECURSOS GRATUITOS</h3>
+                    <p>ZEQEL puede ofrecer recursos gratuitos para descarga, incluyendo:</p>
+                    <ul>
+                        <li>Plantillas.</li>
+                        <li>Mockups.</li>
+                        <li>Archivos gráficos.</li>
+                        <li>Recursos visuales.</li>
+                        <li>Fragmentos de código.</li>
+                        <li>Herramientas.</li>
+                        <li>Material educativo.</li>
+                        <li>Recursos para diseñadores y desarrolladores.</li>
+                    </ul>
+                    <p>Salvo que se indique expresamente lo contrario, dichos recursos se proporcionan "tal cual", sin garantías de ningún tipo.</p>
+                    <p>El usuario es responsable de verificar la compatibilidad, adecuación y funcionamiento de cualquier recurso antes de utilizarlo en proyectos personales o comerciales.</p>
+
+                    <h3>6. PROYECTOS DE CÓDIGO ABIERTO</h3>
+                    <p>Este sitio puede enlazar a repositorios públicos o proyectos de código abierto.</p>
+                    <p>Cada proyecto podrá estar sujeto a licencias específicas que determinarán los permisos, restricciones y condiciones de uso correspondientes.</p>
+                    <p>El usuario deberá revisar las condiciones de cada repositorio antes de reutilizar, modificar, distribuir o integrar cualquier proyecto en sus propios trabajos.</p>
+
+                    <h3>7. ENLACES EXTERNOS</h3>
+                    <p>Este sitio puede contener enlaces hacia servicios, plataformas o recursos administrados por terceros.</p>
+                    <p>Entre ellos:</p>
+                    <ul>
+                        <li>GitHub.</li>
+                        <li>Instagram.</li>
+                        <li>Discord.</li>
+                        <li>Google Drive.</li>
+                        <li>Plataformas de almacenamiento.</li>
+                        <li>Herramientas externas.</li>
+                        <li>Sitios web colaboradores.</li>
+                        <li>Recursos de terceros.</li>
+                    </ul>
+                    <p>ZEQEL no controla ni garantiza la disponibilidad, seguridad, exactitud o contenido de dichos sitios externos.</p>
+                    <p>El acceso a enlaces de terceros se realiza bajo la exclusiva responsabilidad del usuario.</p>
+
+                    <h3>8. DISPONIBILIDAD DEL SITIO</h3>
+                    <p>Aunque se realizan esfuerzos razonables para mantener el sitio disponible y actualizado, ZEQEL no garantiza:</p>
+                    <ul>
+                        <li>Disponibilidad permanente.</li>
+                        <li>Ausencia de errores.</li>
+                        <li>Ausencia de interrupciones.</li>
+                        <li>Compatibilidad con todos los dispositivos o navegadores.</li>
+                    </ul>
+                    <p>ZEQEL podrá modificar, actualizar, reorganizar o eliminar cualquier contenido, recurso o funcionalidad del sitio en cualquier momento y sin previo aviso.</p>
+
+                    <h3>9. EXCLUSIÓN DE RESPONSABILIDAD</h3>
+                    <p>Toda la información, recursos y contenidos publicados se proporcionan con fines informativos, educativos y creativos.</p>
+                    <p>ZEQEL no garantiza que el contenido sea completamente exacto, actualizado o adecuado para todas las situaciones particulares.</p>
+                    <p>En ningún caso ZEQEL será responsable por:</p>
+                    <ul>
+                        <li>Pérdidas económicas.</li>
+                        <li>Pérdida de datos.</li>
+                        <li>Interrupciones de actividad.</li>
+                        <li>Daños directos o indirectos.</li>
+                        <li>Problemas derivados del uso de recursos descargados.</li>
+                        <li>Errores en proyectos o código reutilizado.</li>
+                        <li>Fallos de plataformas o servicios de terceros.</li>
+                    </ul>
+                    <p>El uso del contenido publicado se realiza bajo la responsabilidad exclusiva del usuario.</p>
+
+                    <h3>10. COMUNIDAD Y COMUNICACIONES</h3>
+                    <p>Los usuarios que contacten con ZEQEL mediante correo electrónico, Discord, redes sociales u otros canales de comunicación deberán mantener una conducta respetuosa y adecuada.</p>
+                    <p>ZEQEL se reserva el derecho de ignorar, bloquear o restringir comunicaciones que incluyan:</p>
+                    <ul>
+                        <li>Acoso.</li>
+                        <li>Spam.</li>
+                        <li>Suplantación de identidad.</li>
+                        <li>Contenido ilegal.</li>
+                        <li>Amenazas.</li>
+                        <li>Conductas abusivas o perjudiciales.</li>
+                    </ul>
+
+                    <h3>11. MODIFICACIONES DE LOS TÉRMINOS</h3>
+                    <p>ZEQEL podrá modificar, actualizar o reemplazar estos Términos y Condiciones en cualquier momento.</p>
+                    <p>Las modificaciones entrarán en vigor desde el momento de su publicación en esta página.</p>
+                    <p>Se recomienda revisar periódicamente este documento para mantenerse informado sobre posibles cambios.</p>
+
+                    <h3>12. LEGISLACIÓN APLICABLE</h3>
+                    <p>Estos Términos y Condiciones se interpretarán conforme a la legislación aplicable en la jurisdicción correspondiente al titular del sitio web, sin perjuicio de los derechos que puedan corresponder a los usuarios conforme a las leyes de sus respectivos países.</p>
+
+                    <h3>13. CONTACTO</h3>
+                    <p>Para cualquier consulta relacionada con estos Términos y Condiciones, puedes utilizar los medios de contacto publicados en este sitio web o en las redes oficiales de ZEQEL Estudio Creativo.</p>
+
+                    <h3>14. RESERVA DE DERECHOS</h3>
+                    <p>ZEQEL se reserva todos los derechos no expresamente concedidos en estos Términos y Condiciones.</p>
+                    <p>La publicación de contenido en este sitio no constituye una autorización para reproducir, distribuir, modificar o explotar dicho contenido fuera de los límites permitidos por la legislación aplicable o por las licencias expresamente indicadas.</p>
+
+                    <h3>15. PROTECCIÓN DE CONTENIDO Y PROPIEDAD CREATIVA</h3>
+                    <p>Todos los diseños, conceptos visuales, propuestas gráficas, identidades visuales, interfaces, recursos originales, proyectos creativos, código original, textos, documentación y demás contenidos publicados en este sitio son propiedad intelectual de ZEQEL Estudio Creativo, salvo indicación expresa en contrario.</p>
+                    <p>La publicación de trabajos, bocetos, conceptos, procesos creativos o proyectos en este sitio no implica la cesión de derechos de explotación, reproducción, distribución, modificación o uso comercial.</p>
+                    <p>Queda prohibida la copia, reproducción, adaptación, comercialización o utilización de cualquier contenido original de este sitio con fines comerciales sin autorización previa y expresa de ZEQEL Estudio Creativo.</p>
+                    <p>Asimismo, queda prohibido presentar como propios diseños, conceptos creativos, elementos gráficos, identidades visuales o proyectos desarrollados por ZEQEL.</p>
+                    <p>La inspiración y referencia visual forman parte natural del proceso creativo; sin embargo, la reproducción sustancial o el uso no autorizado de obras originales podrá dar lugar a las acciones que correspondan conforme a la legislación aplicable en materia de propiedad intelectual y derechos de autor.</p>
+                    <p>La ausencia de una marca registrada, patente o registro formal no implica renuncia alguna a los derechos de autor o de propiedad intelectual que correspondan a ZEQEL Estudio Creativo sobre las obras y contenidos originales publicados en este sitio.</p>
+                    
+                    <p style="margin-top: 3rem; font-size: 0.85rem; opacity: 0.5; text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">© 2026 ZEQEL Estudio Creativo. Todos los derechos reservados.</p>
+                </div>
+            </section>
+        </div>
+
     </main>
+
+    <!-- Cajón de Detalle Inmersivo para Proyectos (Modales Líquidos) -->
+    <div id="project-modal" class="modal-overlay">
+        <div class="modal-container">
+            <button class="modal-close" aria-label="Cerrar ventana">&times;</button>
+            <div class="modal-body">
+                <h4 id="modal-project-category">Categoría</h4>
+                <h2 id="modal-project-title">Nombre de Marca</h2>
+                <p id="modal-project-description">Descripción de la dirección de arte y del concepto detrás de este desarrollo creativo.</p>
+                
+                <h4 style="margin-top: 3rem;">Dirección de Color</h4>
+                <div class="project-color-palette" id="modal-project-palette">
+                    <!-- Se cargará dinámicamente -->
+                </div>
+            </div>
+            <div style="margin-top: 4rem;">
+                <span class="label" style="margin-bottom:0.5rem;">Zeqel Creative Agency</span>
+                <p style="font-size:0.8rem; opacity:0.5;">Todos los conceptos exhibidos son de autoría intelectual protegida por Zeqel.</p>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <div class="footer-brand">
@@ -1451,7 +1831,7 @@
                     &copy; Zeqel / Todos los derechos reservados.
                 </div>
                 <div class="legal-links">
-                    <a href="#privacidad">Política de privacidad</a><span>|</span><a href="#">Términos y condiciones</a>
+                    <a href="#privacidad">Política de privacidad</a><span>|</span><a href="#terminos">Términos y condiciones</a>
                 </div>
             </div>
             <div class="location">
@@ -1463,6 +1843,7 @@
     </footer>
 
     <script>
+        // --- Prevención del menú contextual tradicional para proteger UI minimalista ---
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
@@ -1505,10 +1886,16 @@
         }
         grainLoop();
 
-        // Canvas de fondo animado (azul maya suave)
+        // --- Canvas de fondo animado (Luz líquida interactiva) ---
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let time = 0;
+
+        // Variables de interacción (Seguimiento del puntero con suavizado Lerp)
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let targetMouseX = window.innerWidth / 2;
+        let targetMouseY = window.innerHeight / 2;
         
         function resize() {
             canvas.width = window.innerWidth;
@@ -1518,26 +1905,43 @@
         window.addEventListener('resize', resize);
         resize();
 
+        // Registrar posición del mouse (o toques)
+        window.addEventListener('mousemove', (e) => {
+            targetMouseX = e.clientX;
+            targetMouseY = e.clientY;
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                targetMouseX = e.touches[0].clientX;
+                targetMouseY = e.touches[0].clientY;
+            }
+        });
+
         function animate() {
             time += 0.002;
             
-            // No pintar fondo sólido — el canvas solo agrega el orbe azul maya
+            // Lerp para suavidad orgánica
+            mouseX += (targetMouseX - mouseX) * 0.045;
+            mouseY += (targetMouseY - mouseY) * 0.045;
+
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            const xOffset = Math.sin(time) * (canvas.width * 0.25);
-            const yOffset = Math.cos(time * 0.8) * (canvas.height * 0.25);
+            // Variaciones ondulatorias sutiles añadidas al cursor
+            const xOffset = Math.sin(time) * (canvas.width * 0.05);
+            const yOffset = Math.cos(time * 0.8) * (canvas.height * 0.05);
             
-            const centerX = (canvas.width / 2) + xOffset;
-            const centerY = (canvas.height / 2) + yOffset;
-            const radius = Math.max(canvas.width, canvas.height) * 0.55;
+            const centerX = mouseX + xOffset;
+            const centerY = mouseY + yOffset;
+            const radius = Math.max(canvas.width, canvas.height) * 0.58;
             
             const gradient = ctx.createRadialGradient(
                 centerX, centerY, 0, 
                 centerX, centerY, radius
             );
             
-            gradient.addColorStop(0, 'rgba(115, 194, 251, 0.18)');
-            gradient.addColorStop(0.5, 'rgba(115, 194, 251, 0.07)');
+            gradient.addColorStop(0, 'rgba(115, 194, 251, 0.22)');
+            gradient.addColorStop(0.4, 'rgba(115, 194, 251, 0.08)');
             gradient.addColorStop(1, 'rgba(244, 239, 234, 0)');
             
             ctx.fillStyle = gradient;
@@ -1565,43 +1969,104 @@
             setInterval(updateClock, 1000);
         };
 
-        // Navegación SPA
+        // --- Base de Datos Local de Proyectos para el Visor Inmersivo ---
+        const projectsDatabase = {
+            aura: {
+                title: "Aura Editorial",
+                category: "Editorial & Design",
+                description: "Una identidad táctil y refinada para una editorial independiente enfocada en filosofía minimalista. Aura celebra los márgenes amplios, la tipografía serif silenciosa y los sustratos orgánicos crudos.",
+                palette: ["#1A1C20", "#E3DEC3", "#697268", "#F4EFEA"]
+            },
+            neolith: {
+                title: "Neolith Skin",
+                category: "Skincare & Clean Beauty",
+                description: "Marca de cosmética premium basada en principios de transparencia botánica. La identidad visual se apoya en envases de vidrio soplado pesado, líneas de corte brutalistas y un matiz verde musgo traslúcido.",
+                palette: ["#4F5D54", "#D1C7BD", "#EFECE9", "#242525"]
+            },
+            kinetic: {
+                title: "Kinetic Studio",
+                category: "Architecture Studio",
+                description: "Estudio de arquitectura de vanguardia en la península. Creamos una marca líquida que cambia según la luz de la estación, estructurada por geometrías finas, retículas cinéticas y una tipografía mono-espaciada.",
+                palette: ["#0A0A0B", "#7F8A94", "#EBEAEA", "#1A7392"]
+            },
+            origen: {
+                title: "Origen Coffee",
+                category: "Specialty Coffee",
+                description: "Origen redefine la trazabilidad del café de especialidad. La identidad celebra el color de la tierra cruda con un logotipo caligráfico minimalista y texturas táctiles hechas a base de pulpa residual de café.",
+                palette: ["#45322E", "#CDBFA8", "#D96570", "#FAF8F5"]
+            },
+            lumina: {
+                title: "Lumina Lighting",
+                category: "Curated Lighting",
+                description: "Curaduría artística de diseño lumínico. La marca funciona como un juego de sombras y luces proyectadas, utilizando materiales de latón cepillado y un logotipo interactivo que responde a la intensidad de luz ambiente.",
+                palette: ["#0F1115", "#D4AF37", "#9E9E9E", "#F4EFEA"]
+            },
+            nomad: {
+                title: "Nomad Slow Travel",
+                category: "Slow Travel Gear",
+                description: "Equipamiento de viaje conceptual y perdurable. La marca abraza el minimalismo utilitario de alto rendimiento técnico, utilizando paletas arenosas, empaques planos de cartón mineral e ilustraciones de topología.",
+                palette: ["#3D3A37", "#8A817C", "#BCB8B1", "#F4EFEA"]
+            },
+            vibe: {
+                title: "Vibe Records",
+                category: "Sonic Art Agency",
+                description: "Sello de curaduría sonora y artes abstractas. El lenguaje de la marca es de un minimalismo estricto e icónico, dominado por el contraste puro, ritmos geométricos y vibraciones de color cian ácido sobre negro.",
+                palette: ["#000000", "#73C2FB", "#EBECEE", "#1A7392"]
+            },
+            terra: {
+                title: "Terra Wine",
+                category: "Sustainable Wine",
+                description: "Vino natural biodinámico de uva silvestre. Creamos un sistema visual limpio que prioriza el soplado artesanal de la botella y una etiqueta sin adhesivos sostenida mediante hilos de cáñamo natural y lacre.",
+                palette: ["#2C1A1D", "#8B575C", "#D9C5B2", "#F4EFEA"]
+            },
+            apex: {
+                title: "Apex Tech",
+                category: "Decentralized Tech",
+                description: "La capa visual del futuro de los protocolos distribuidos de red. Diseñamos un lenguaje de bloques transparentes, vidrios virtuales refractantes y tipografía técnica de legibilidad milimétrica.",
+                palette: ["#0D0E10", "#1A7392", "#73C2FB", "#ECEEF1"]
+            }
+        };
+
+        // --- Navegación SPA & Sistema de Interacciones ---
         document.addEventListener('DOMContentLoaded', () => {
-            const navLinks = document.querySelectorAll('.nav-links a, .legal-links a[href="#privacidad"]');
+            const navLinks = document.querySelectorAll('.nav-links a, .legal-links a');
             const logo = document.querySelector('.logo-container');
             const pages = document.querySelectorAll('.page');
             const copyButtons = document.querySelectorAll('.copy-btn');
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
             const navLinksContainer = document.querySelector('.nav-links');
 
+            // Modal/Drawer elements
+            const modalOverlay = document.getElementById('project-modal');
+            const modalClose = document.querySelector('.modal-close');
+            const modalTitle = document.getElementById('modal-project-title');
+            const modalCategory = document.getElementById('modal-project-category');
+            const modalDesc = document.getElementById('modal-project-description');
+            const modalPalette = document.getElementById('modal-project-palette');
+
             // Efecto máquina de escribir
             const twElement = document.getElementById('typewriter-text');
             if (twElement) {
-                const text = "Porque una marca no se trata solo de cómo se ve, sino de cómo hace sentir.";
+                const text = "Porque una marca no se trata solo de cómo se ve, sino de cómo se siente.";
                 twElement.innerHTML = '';
                 twElement.classList.add('typewriter-cursor');
                 let i = 0;
                 let isDeleting = false;
                 
-                // Retraso para sincronizar con la animación de entrada de la página
                 setTimeout(() => {
                     function typeWriterLoop() {
                         if (!isDeleting && i < text.length) {
-                            // Escribiendo
                             twElement.innerHTML = text.substring(0, i + 1);
                             i++;
-                            setTimeout(typeWriterLoop, 35); // Velocidad de escritura
+                            setTimeout(typeWriterLoop, 35);
                         } else if (isDeleting && i > 0) {
-                            // Borrando
                             twElement.innerHTML = text.substring(0, i - 1);
                             i--;
-                            setTimeout(typeWriterLoop, 20); // Velocidad de borrado (más rápido)
+                            setTimeout(typeWriterLoop, 20);
                         } else if (!isDeleting && i === text.length) {
-                            // Terminó de escribir, espera 3 segundos antes de borrar
                             isDeleting = true;
                             setTimeout(typeWriterLoop, 3000);
                         } else if (isDeleting && i === 0) {
-                            // Terminó de borrar, espera 1 segundo antes de volver a escribir
                             isDeleting = false;
                             setTimeout(typeWriterLoop, 1000);
                         }
@@ -1618,14 +2083,13 @@
                 }
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 
-                // Cierra el menú en versión móvil al seleccionar un enlace
                 if (mobileMenuBtn && navLinksContainer) {
                     mobileMenuBtn.classList.remove('active');
                     navLinksContainer.classList.remove('active');
                 }
             }
 
-            // Lógica para desplegar menú en móviles
+            // Lógica menú móvil
             if (mobileMenuBtn && navLinksContainer) {
                 mobileMenuBtn.addEventListener('click', () => {
                     mobileMenuBtn.classList.toggle('active');
@@ -1647,6 +2111,7 @@
                 });
             }
 
+            // Copiar enlaces al portapapeles de manera segura
             copyButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
                     const url = btn.getAttribute('data-url');
@@ -1669,12 +2134,51 @@
                     }, 2000);
                 });
             });
+
+            // --- Lógica del Cajón Inmersivo de Detalle (Modal) ---
+            const brandCards = document.querySelectorAll('.brand-card');
+            brandCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const projectKey = card.getAttribute('data-project');
+                    const projectData = projectsDatabase[projectKey];
+
+                    if (projectData) {
+                        modalTitle.textContent = projectData.title;
+                        modalCategory.textContent = projectData.category;
+                        modalDesc.textContent = projectData.description;
+
+                        // Limpiar y crear la paleta de colores
+                        modalPalette.innerHTML = '';
+                        projectData.palette.forEach(color => {
+                            const bubble = document.createElement('div');
+                            bubble.className = 'color-bubble';
+                            bubble.style.backgroundColor = color;
+                            bubble.setAttribute('data-hex', color);
+                            modalPalette.appendChild(bubble);
+                        });
+
+                        // Abrir el cajón inmersivo
+                        modalOverlay.classList.add('active');
+                    }
+                });
+            });
+
+            if (modalClose) {
+                modalClose.addEventListener('click', () => {
+                    modalOverlay.classList.remove('active');
+                });
+            }
+
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    modalOverlay.classList.remove('active');
+                }
+            });
         });
 
-        // --- Liquid Glass Scroll Effect (Efecto de Ascenso) ---
+        // --- Liquid Glass Scroll Effect ---
         const mainNav = document.querySelector('nav');
         window.addEventListener('scroll', () => {
-            // Apenas el usuario baja unos pixeles, aplicamos la elevación suave
             if (window.scrollY > 15) {
                 mainNav.classList.add('nav-scrolled');
             } else {
